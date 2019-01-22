@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, Button, View } from 'react-native';
 
-export default class HomeScreen extends React.Component {
+export default class HomeScreen extends React.Component<any> {
   static navigationOptions = {
     title: "Title",
     headerTitleStyle: {
