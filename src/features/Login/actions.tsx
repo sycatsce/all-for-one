@@ -1,13 +1,13 @@
-export const userLogin = () => (
+export const loginAction = (loggedAs: string) => (
     {
       type: 'USER_LOGIN',
-      payload: true
+      payload: loggedAs
     }
-  );
+);
 
-export const userLogout = () => (
+export const logoutAction = (loggedAs: string) => (
     {
         type: 'USER_LOGOUT',
-        payload: false
+        payload: loggedAs
     }
 );

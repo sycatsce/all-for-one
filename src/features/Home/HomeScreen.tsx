@@ -1,21 +1,22 @@
 import React from 'react';
 import { Text, Button, View } from 'react-native';
+import { connect } from 'react-redux';
 
-export default class HomeScreen extends React.Component<any> {
-  static navigationOptions = {
-    title: "Title",
-    headerTitleStyle: {
-      fontFamily: "Verdana",
-      fontWeight: "200"
-    }
-  }
-
+class HomeScreen extends React.Component<any> {
   render() {
     return (
       <View>
-        <Text> Binks </Text>
-        <Button onPress={ () => this.props.navigation.navigate('Login') } title="Go to login" />
+        <Text> Hi {this.props.loggedAs} </Text>
+        <Text> Start using All for One </Text>
       </View>
     );
   }
 }
+
+const mapStateToProps = (state:any) => {
+  return {
+    loggedAs: state.loginReducer.loggedAs
+  }
+}
+
+export default connect(mapStateToProps)(HomeScreen);
