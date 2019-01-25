@@ -15,7 +15,7 @@ class SignInScreen extends React.Component<any, state> {
   render() {
     return (
       <View>
-        <Text> SignUp </Text>
+        <Text> SignIn </Text>
         <TextInput
           onChangeText={(username) => this.setState({username})}
           value={this.state.username}
@@ -36,7 +36,7 @@ class SignInScreen extends React.Component<any, state> {
 
   
   userLogin(){
-    //API Call, check inputs
+    //API Call, check inputs, then get the user object
     let _storeData = async () => {      
       //await AsyncStorage.setItem('USER_KEY', 'myKey');
       this.props.actions.login(this.state.username);

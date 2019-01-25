@@ -1,9 +1,8 @@
 import React from 'react';
-import { Button } from 'react-native';
+import { Button, View, Text} from 'react-native';
 import Spotify from 'rn-spotify-sdk';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { spotifyOptions } from './const';
 import * as SpotifyActions from './actions';
 
 class SpotifyAuth extends React.Component<any> {
@@ -31,7 +30,7 @@ class SpotifyAuth extends React.Component<any> {
         this.props.actions.spotifyLogin();
         console.log('Déjà connecté');
         Spotify.getMe().then((result: any) => {
-          console.log(result);
+          this.props.actions.spotifyLogin(result);
         });
       }
       else {
@@ -44,12 +43,10 @@ class SpotifyAuth extends React.Component<any> {
   }
 
   auth(){
-    console.log(this.props);
 		Spotify.login().then((loggedIn: any) => {
 			if(loggedIn){
-        this.props.actions.spotifyLogin();
         Spotify.getMe().then((result: any) => {
-          console.log(result);
+          this.props.actions.spotifyLogin(result);
         });
       }
 			else{
@@ -61,19 +58,30 @@ class SpotifyAuth extends React.Component<any> {
   }
 
   render() {
-    return (
-      <Button
-        title="Link Spotify"
-        onPress={ () => this.auth() }
-      />
-    );
+    if (this.props.spotifyLogged == false){
+      return (
+        <Button
+          title="Link Spotify"
+          onPress={ () => this.auth() }
+        />
+      );
+    } else {
+      let user = this.props.spotifyUser ? this.props.spotifyUser.display_name : ""
+      return (
+        <View>
+          <Text> Spotify </Text>
+          <Text> Logged as { user } </Text>
+        </View>
+      )
+    }
   }
 }
 
 
 const mapStateToProps = (state:any) => {
   return {
-    spotifyLogged: state.spotifyReducer.spotifyLogged
+    spotifyLogged: state.spotifyReducer.spotifyLogged,
+    spotifyUser: state.spotifyReducer.spotifyUser
   }
 }
 

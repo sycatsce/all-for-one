@@ -3,8 +3,8 @@ import { createStackNavigator, createAppContainer, createSwitchNavigator, create
 import LoginScreen from '../features/Login/LoginScreen';
 import SignInScreen from '../features/Login/SignInScreen';
 import SignUpScreen from '../features/Login/SignUpScreen';
-import SpotifyScreen from '../features/Spotify/SpotifyScreen';
 import AfoScreen from '../features/AllForOne/AfoScreen';
+import MyAccountScreen from '../features/MyAccount/MyAccountScreen';
 
 const AuthNavigator = createStackNavigator({
   Login: { screen: LoginScreen },
@@ -13,7 +13,7 @@ const AuthNavigator = createStackNavigator({
 });
 
 const BottomTab = createBottomTabNavigator({
-  Spotify: { screen: SpotifyScreen },
+  MyAccount: { screen: MyAccountScreen },
   AllForOne: { screen: AfoScreen }
 });
 

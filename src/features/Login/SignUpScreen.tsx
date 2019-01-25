@@ -12,7 +12,7 @@ export default class SignUpScreen extends React.Component<any, state> {
   render() {
     return (
       <View>
-        <Text> SignIn </Text>
+        <Text> SignUp </Text>
         <TextInput
           onChangeText={(username) => this.setState({username})}
           value={this.state.username}
