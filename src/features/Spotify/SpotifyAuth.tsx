@@ -20,7 +20,12 @@ class SpotifyAuth extends React.Component<any> {
   }
 
   initSpotify(){
-    Spotify.initialize(spotifyOptions).then((loggedIn: any) => {
+    Spotify.initialize({
+      "clientID":"1902ccc05b954f14bc57d7cf73363e52",
+      "sessionUserDefaultsKey":"SpotifySession",
+      "redirectURL":"com.allforone://auth",
+      "scopes":["user-read-private", "playlist-read", "playlist-read-private", "streaming"],
+    }).then((loggedIn: any) => {
       this.setState({spotifyInitialized: true});
       if(loggedIn) {
         this.props.actions.spotifyLogin();
