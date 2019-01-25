@@ -46,23 +46,9 @@ export default class LoginScreen extends React.Component<any> {
     this.checkLocalKey().then( (user_key: string|boolean) =>{
       if (user_key !== false){
         this.checkServerKey(user_key).then( (logged:any) => {
-          if (logged){ this.props.navigation.navigate('Home'); }
+          if (logged){ this.props.navigation.navigate('AllForOne'); }
         });
       }
     });
   }
 }
-/*
-const mapStateToProps = (state:any) => {
-  return {
-    isLogged: state.loginReducer.isLogged
-  }
-}
-
-
-const mapDispatchToProps = (dispatch:any) => ({
-  actions : bindActionCreators(LoginActions, dispatch),
-})
-*/
-
-//export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

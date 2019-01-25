@@ -1,13 +1,15 @@
 import React from 'react';
 import { Text, Button, View } from 'react-native';
 import { connect } from 'react-redux';
+import SpotifyAuth from './SpotifyAuth';
 
-class HomeScreen extends React.Component<any> {
+class SpotifyScreen extends React.Component<any> {
   render() {
     return (
       <View>
         <Text> Hi {this.props.loggedAs} </Text>
-        <Text> Start using All for One </Text>
+        <Text> Spotify Account </Text>
+        <SpotifyAuth />
       </View>
     );
   }
@@ -19,4 +21,4 @@ const mapStateToProps = (state:any) => {
   }
 }
 
-export default connect(mapStateToProps)(HomeScreen);
+export default connect(mapStateToProps)(SpotifyScreen);

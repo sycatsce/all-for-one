@@ -40,7 +40,7 @@ class SignInScreen extends React.Component<any, state> {
     let _storeData = async () => {      
       //await AsyncStorage.setItem('USER_KEY', 'myKey');
       this.props.actions.login(this.state.username);
-      this.props.navigation.navigate('Home');
+      this.props.navigation.navigate('AllForOne');
     }
     _storeData();
   }
