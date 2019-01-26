@@ -27,7 +27,7 @@ class SpotifyAuth extends React.Component<any> {
     }).then((loggedIn: any) => {
       this.setState({spotifyInitialized: true});
       if(loggedIn) {
-        this.props.actions.spotifyLogin();
+        this.props.actions.spotifyLogin(loggedIn);
         console.log('Déjà connecté');
         Spotify.getMe().then((result: any) => {
           this.props.actions.spotifyLogin(result);
@@ -65,18 +65,16 @@ class SpotifyAuth extends React.Component<any> {
           onPress={ () => this.auth() }
         />
       );
-    } else {
-      let user = this.props.spotifyUser ? this.props.spotifyUser.display_name : ""
+    }else {
       return (
         <View>
           <Text> Spotify </Text>
-          <Text> Logged as { user } </Text>
+          <Text> Logged as { this.props.spotifyUser.display_name } </Text>
         </View>
       )
     }
   }
 }
-
 
 const mapStateToProps = (state:any) => {
   return {
@@ -84,7 +82,6 @@ const mapStateToProps = (state:any) => {
     spotifyUser: state.spotifyReducer.spotifyUser
   }
 }
-
 
 const mapDispatchToProps = (dispatch:any) => ({
   actions : bindActionCreators(SpotifyActions, dispatch),

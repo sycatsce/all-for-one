@@ -37,7 +37,7 @@ class SignInScreen extends React.Component<any, state> {
   
   userLogin(){
     //API Call, check inputs, then get the user object
-    let _storeData = async () => {      
+    let _storeData = async () => {
       //await AsyncStorage.setItem('USER_KEY', 'myKey');
       this.props.actions.login(this.state.username);
       this.props.navigation.navigate('AllForOne');
