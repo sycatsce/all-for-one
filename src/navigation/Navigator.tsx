@@ -14,20 +14,15 @@ const LoginStack = createStackNavigator({
   SignUp: { screen: SignUpScreen },
 });
 
-const BottomTabNavigator = createBottomTabNavigator({
+const BottomTabNavigator = createBottomTabNavigator({  
   MyAccount: { screen: MyAccountScreen },
   AllForOne: { screen: AfoScreen },
 });
 
-const AfoStack = createStackNavigator({
-  Main: { screen: MainMenuScreen },
-  Join: { screen: JoinRoom }
-})
-
 const Navigator = createSwitchNavigator({
   Login: LoginStack,
   Bottom : BottomTabNavigator,
-  Afo: AfoStack,
+  Main: { screen: MainMenuScreen },
 });
 
 export default createAppContainer(Navigator);

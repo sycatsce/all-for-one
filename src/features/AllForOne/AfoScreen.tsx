@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import MainMenuScreen from './MainMenu/MainMenuScreen';
 import * as AfoActions from './actions';
 import JoinRoom from './JoinRoom/JoinRoom';
-
+import CreateRoom from './CreateRoom/CreateRoom';
 
 class AfoScreen extends React.Component<any> {
   render() {
@@ -14,6 +14,8 @@ class AfoScreen extends React.Component<any> {
         return <MainMenuScreen />
       case 'JOIN':
         return <JoinRoom />
+      case 'CREATE':
+        return <CreateRoom />
     }
   }
 } 

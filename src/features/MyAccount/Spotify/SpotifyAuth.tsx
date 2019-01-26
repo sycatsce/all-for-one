@@ -7,13 +7,6 @@ import * as SpotifyActions from './actions';
 
 class SpotifyAuth extends React.Component<any> {
 
-  constructor(props: any){
-    super(props);
-    this.state = ({
-      spotifyInitialized: false
-    });
-  }
-
   componentDidMount(){
     this.initSpotify();
   }
@@ -25,12 +18,12 @@ class SpotifyAuth extends React.Component<any> {
       "redirectURL":"com.allforone://auth",
       "scopes":["user-read-private", "playlist-read", "playlist-read-private", "streaming"],
     }).then((loggedIn: any) => {
-      this.setState({spotifyInitialized: true});
       if(loggedIn) {
         this.props.actions.spotifyLogin(loggedIn);
         console.log('Déjà connecté');
         Spotify.getMe().then((result: any) => {
           this.props.actions.spotifyLogin(result);
+          this.props.loggedIn();
         });
       }
       else {
@@ -47,6 +40,7 @@ class SpotifyAuth extends React.Component<any> {
 			if(loggedIn){
         Spotify.getMe().then((result: any) => {
           this.props.actions.spotifyLogin(result);
+          console.log(Spotify)
         });
       }
 			else{

@@ -7,9 +7,8 @@ class MyAccountScreen extends React.Component<any> {
   render() {
     return (
       <View>
-        <Text> Hi {this.props.loggedAs} </Text>
         <Text> My Account </Text>
-        <SpotifyAuth />
+        <SpotifyAuth loggedIn={ () => this.props.navigation.navigate('AllForOne') }/>
       </View>
     );
   }

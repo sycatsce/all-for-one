@@ -5,6 +5,7 @@ const INITIAL_STATE = {
     }
 };
 
+
 const afoReducer = (state = INITIAL_STATE, action: {type: string, payload:any}) => {
 
     switch (action.type) {
@@ -16,6 +17,11 @@ const afoReducer = (state = INITIAL_STATE, action: {type: string, payload:any}) 
 
         case 'CREATE_ROOM':
             return Object.assign( {}, state, { datas : action.payload } );
+        case 'BACK':
+            if (action.payload == "CREATE" || action.payload == "JOIN"){
+                return Object.assign( {}, state, INITIAL_STATE );
+            }
+
         default:
             return state
         }
