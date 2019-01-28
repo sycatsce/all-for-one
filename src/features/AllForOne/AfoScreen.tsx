@@ -2,26 +2,43 @@ import React from 'react';
 import { Text, Button, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import MainMenuScreen from './MainMenu/MainMenuScreen';
 import * as AfoActions from './actions';
-import JoinRoom from './JoinRoom/JoinRoom';
-import CreateRoom from './CreateRoom/CreateRoom';
 
 class AfoScreen extends React.Component<any> {
+
+  static navigationOptions = { header: null } 
+
   render() {
-    switch(this.props.step){
-      case 'SELECT':
-        return <MainMenuScreen />
-      case 'JOIN':
-        return <JoinRoom />
-      case 'CREATE':
-        return <CreateRoom />
+    if (this.props.spotifyLogged == true){
+      return(
+        <View>
+          <Text> Hi {this.props.loggedAs} </Text>
+          <Button
+            title="Créer une salle"
+            onPress={ () => { this.props.navigation.push('Create'); } }
+          />
+
+          <Button
+            title="Rejoindre une salle"
+            onPress={ () => { this.props.navigation.push('Join'); } }
+          />
+        </View>
+      );
+    } else {
+      return (
+        <View>
+          <Text> Hi {this.props.loggedAs} </Text>
+          <Text> Link your spotify account and start using All for One </Text>
+        </View>
+      );
     }
   }
 } 
 
 const mapStateToProps = (state:any) => {
   return {
+    loggedAs: state.loginReducer.loggedAs,
+    spotifyLogged: state.spotifyReducer.spotifyLogged,
     step: state.afoReducer.datas.step,
     description: state.afoReducer.datas.description
   }

@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as AfoActions from '../actions';
 
-
 class JoinRoom extends React.Component<any> {
 
   componentDidMount(){

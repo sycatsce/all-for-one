@@ -2,7 +2,9 @@ import React from 'react';
 import { Text, Button, View, AsyncStorage } from 'react-native';
 
 export default class LoginScreen extends React.Component<any> {
+  
   static navigationOptions = { header: null } 
+  
   componentDidMount(){
     this.checkLogin();
   }

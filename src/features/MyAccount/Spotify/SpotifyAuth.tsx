@@ -19,7 +19,6 @@ class SpotifyAuth extends React.Component<any> {
       "scopes":["user-read-private", "playlist-read", "playlist-read-private", "streaming"],
     }).then((loggedIn: any) => {
       if(loggedIn) {
-        this.props.actions.spotifyLogin(loggedIn);
         console.log('Déjà connecté');
         Spotify.getMe().then((result: any) => {
           this.props.actions.spotifyLogin(result);

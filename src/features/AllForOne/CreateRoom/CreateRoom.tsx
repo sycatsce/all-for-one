@@ -10,7 +10,6 @@ class CreateRoom extends React.Component<any> {
     BackHandler.addEventListener('hardwareBackPress', () => { this.handleBackPress(); return true; });
   }
 
-
   render() {
     return (
       <View>
@@ -26,7 +25,8 @@ class CreateRoom extends React.Component<any> {
 
 const mapStateToProps = (state:any) => {
   return {
-    loggedAs: state.loginReducer.loggedAs
+    loggedAs: state.loginReducer.loggedAs,
+    step: state.afoReducer.datas.step,
   }
 }
 
