@@ -20,9 +20,10 @@ class SpotifyAuth extends React.Component<any> {
     }).then((loggedIn: any) => {
       if(loggedIn) {
         console.log('Déjà connecté');
-        Spotify.getMe().then((result: any) => {
-          this.props.actions.spotifyLogin(result);
-          this.props.loggedIn();
+        Spotify.getMe().then((user: any) => {
+          Spotify.getAuthAsync().then((auth: any) => {
+            this.props.actions.spotifyLogin(user, auth);
+          });
         });
       }
       else {
@@ -37,9 +38,10 @@ class SpotifyAuth extends React.Component<any> {
   auth(){
 		Spotify.login().then((loggedIn: any) => {
 			if(loggedIn){
-        Spotify.getMe().then((result: any) => {
-          this.props.actions.spotifyLogin(result);
-          console.log(Spotify)
+        Spotify.getMe().then((user: any) => {
+          Spotify.getAuthAsync().then((auth: any) => {
+            this.props.actions.spotifyLogin(user, auth);
+          });
         });
       }
 			else{
@@ -47,6 +49,12 @@ class SpotifyAuth extends React.Component<any> {
 			}
 		}).catch((error: any) => {
 			console.log(error);
+    });
+  }
+
+  logout(){
+    Spotify.logout().then(() => {
+      this.props.actions.spotifyLogout();
     });
   }
 
@@ -58,11 +66,15 @@ class SpotifyAuth extends React.Component<any> {
           onPress={ () => this.auth() }
         />
       );
-    }else {
+    } else {
       return (
         <View>
           <Text> Spotify </Text>
           <Text> Logged as { this.props.spotifyUser.display_name } </Text>
+          <Button
+            title="Logout"
+            onPress={ () => this.logout() }
+          />
         </View>
       )
     }

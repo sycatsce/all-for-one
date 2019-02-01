@@ -3,13 +3,14 @@ import { Text, Button, View, TextInput, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { loginAction as login } from './actions';
+import * as api from '../../api/login';
 
-type state = { username: string, password: string }
+type state = { username: string, password: string, loading: boolean };
 
 class SignInScreen extends React.Component<any, state> {
   constructor(props: any) {
     super(props);
-    this.state = { username: 'Username', password: 'Password' };
+    this.state = { username: 'ECSTACYS', password: 'SYCATSCE', loading: false };
   }
   
   render() {
@@ -28,21 +29,25 @@ class SignInScreen extends React.Component<any, state> {
 
         <Button
           title="Sign In"
-          onPress={ () => this.userLogin() }
+          onPress={ () => { this.setState({loading: true}); this.userLogin() }}
         />
+        { this.state.loading ? <Text> Loading ... </Text> : null }
       </View>
     );
   }
 
   
-  userLogin(){
-    //API Call, check inputs, then get the user object
-    let _storeData = async () => {
-      //await AsyncStorage.setItem('USER_KEY', 'myKey');
-      this.props.actions.login(this.state.username);
-      this.props.navigation.navigate('MyAccount');
-    }
-    _storeData();
+  userLogin(){   
+    api.signIn(this.state.username, this.state.password).then((res: any) => {
+      if(res.login){
+        AsyncStorage.setItem('USER', this.state.username).then( () => {
+          this.props.actions.login(this.state.username); //Pass user to the global store
+          this.props.navigation.navigate('MyAccount'); //Bye bye
+        }); //Stock username in localstorage, idk what to do
+      } else {
+        this.setState({loading: false});
+      }
+    });
   }
 }
 
