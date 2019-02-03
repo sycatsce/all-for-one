@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, View, Text} from 'react-native';
+import { View, Text} from 'react-native';
+import Button from 'apsl-react-native-button';
 import Spotify from 'rn-spotify-sdk';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -62,19 +63,24 @@ class SpotifyAuth extends React.Component<any> {
     if (this.props.spotifyLogged == false){
       return (
         <Button
-          title="Link Spotify"
           onPress={ () => this.auth() }
-        />
+          style={{backgroundColor: 'black'}}
+          textStyle={{fontSize: 18, color: 'white'}}
+        >
+          Link Spotify
+        </Button>
       );
     } else {
       return (
         <View>
-          <Text> Spotify </Text>
-          <Text> Logged as { this.props.spotifyUser.display_name } </Text>
+          <Text> Spotify account linked : { this.props.spotifyUser.display_name } </Text>
           <Button
-            title="Logout"
             onPress={ () => this.logout() }
-          />
+            style={{backgroundColor: 'black'}}
+            textStyle={{fontSize: 18, color: 'white'}}
+          >
+          Unlink
+        </Button>
         </View>
       )
     }

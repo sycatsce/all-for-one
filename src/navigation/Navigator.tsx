@@ -7,11 +7,39 @@ import AfoScreen from '../features/AllForOne/AfoScreen';
 import MyAccountScreen from '../features/MyAccount/MyAccountScreen';
 import JoinRoom from '../features/AllForOne/JoinRoom/JoinRoom';
 import CreateRoom from '../features/AllForOne/CreateRoom/CreateRoom';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import React from 'react';
 
 const LoginStack = createStackNavigator({
   Login: { screen: LoginScreen },
-  SignIn: { screen: SignInScreen },
-  SignUp: { screen: SignUpScreen },
+  SignIn: { 
+    screen: SignInScreen,
+    navigationOptions: {
+        title: 'Home',
+        headerStyle: {
+          backgroundColor: '#fff',
+        },
+        headerTintColor: '#000',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          fontFamily: 'GeosansLight'
+      }
+    }
+  },
+  SignUp: {
+    screen: SignUpScreen,
+    navigationOptions: {
+      title: 'Home',
+      headerStyle: {
+        backgroundColor: '#fff',
+      },
+      headerTintColor: '#000',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        fontFamily: 'GeosansLight'
+      }
+    }
+  },
 });
 
 const AfoStack = createStackNavigator({
@@ -21,8 +49,27 @@ const AfoStack = createStackNavigator({
 });
 
 const BottomTabNavigator = createBottomTabNavigator({  
-  MyAccount: { screen: MyAccountScreen },
-  AllForOne: AfoStack
+  MyAccount: {
+    screen: MyAccountScreen,
+    navigationOptions: {
+      tabBarIcon: ({}) => (
+        <Icon name="user" size={20} color="#000" />
+      )
+    }
+  },
+  AllForOne: {
+    screen: AfoStack,
+    navigationOptions: {
+      tabBarIcon: ({}) => (
+        <Icon name="circle" size={20} color="#000" />
+      )
+    }
+  }
+}, {
+  tabBarOptions:{
+    activeTintColor: '#000',
+    style: { backgroundColor: '#fff' }
+  }
 });
 
 const Navigator = createSwitchNavigator({

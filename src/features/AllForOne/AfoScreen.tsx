@@ -1,8 +1,10 @@
 import React from 'react';
-import { Text, Button, View } from 'react-native';
+import { Text, View } from 'react-native';
+import Button from 'apsl-react-native-button';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as AfoActions from './actions';
+import AppLayout from '../../components/layout';
 
 class AfoScreen extends React.Component<any> {
 
@@ -10,28 +12,35 @@ class AfoScreen extends React.Component<any> {
 
   render() {
     if (this.props.spotifyLogged == true){
-      return(
-        <View>
+      var content = (
+        <View style={{ borderRadius: 10, borderWidth: 1, borderStyle: 'solid', borderColor: 'black', height: '30%', padding:'5%'}}>
           <Text> Hi {this.props.loggedAs} </Text>
           <Button
-            title="Créer une salle"
             onPress={ () => { this.props.navigation.push('Create'); } }
-          />
-
+            style={{backgroundColor: 'black'}}
+            textStyle={{fontSize: 18, color: 'white'}}
+          >
+            Créer une salle
+          </Button>
+          <View style={{height: 5}}/>
           <Button
-            title="Rejoindre une salle"
             onPress={ () => { this.props.navigation.push('Join'); } }
-          />
+            style={{backgroundColor: 'black'}}
+            textStyle={{fontSize: 18, color: 'white'}}
+          >
+            Rejoindre une salle
+          </Button>
         </View>
       );
     } else {
-      return (
+      var content =  (
         <View>
           <Text> Hi {this.props.loggedAs} </Text>
           <Text> Link your spotify account and start using All for One </Text>
         </View>
       );
     }
+    return ( <AppLayout content={content}></AppLayout> )
   }
 } 
 

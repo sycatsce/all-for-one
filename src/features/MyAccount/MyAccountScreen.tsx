@@ -1,16 +1,18 @@
 import React from 'react';
-import { Text, Button, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import SpotifyAuth from './Spotify/SpotifyAuth';
+import SpotifyAuth from '../Spotify/SpotifyAuth';
+import AppLayout from '../../components/layout';
 
 class MyAccountScreen extends React.Component<any> {
   render() {
-    return (
-      <View>
+    let content = (
+      <View style={{ borderRadius: 10, borderWidth: 1, borderStyle: 'solid', borderColor: 'black', height: '30%', padding:'5%'}}>
         <Text> My Account </Text>
         <SpotifyAuth loggedIn={ () => this.props.navigation.navigate('AllForOne') }/>
       </View>
     );
+    return( <AppLayout content={content}></AppLayout> )
   }
 }
 

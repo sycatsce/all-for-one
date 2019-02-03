@@ -1,8 +1,10 @@
 import React from 'react';
-import { Text, Button, View, AsyncStorage } from 'react-native';
+import { Text, View, AsyncStorage } from 'react-native';
+import Button from 'apsl-react-native-button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { loginAction as login } from './actions';
+import AppLayout from '../../components/layout';
 
 type state = { loading: boolean };
 
@@ -25,14 +27,35 @@ class LoginScreen extends React.Component<any, state> {
   }
 
   render() {
-    this.checkLogin();
+    let content = (
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+
+        <View style={{ height:'50%', marginTop: '20%'}}>
+          <Text style={{ fontFamily: 'GeosansLight', textAlign: 'center', fontSize: 60, color: 'black'}}> All For One </Text>
+        </View>
+
+        <View style={{ width: '90%', marginTop: '30%'}}>
+          <Button 
+            onPress={ () => this.props.navigation.push('SignIn') }
+            style={{backgroundColor: 'white'}}
+            textStyle={{fontSize: 18, color: '#000000'}}>
+              Sign In
+          </Button>
+          
+          <Button
+            onPress={ () => this.props.navigation.push('SignUp') }
+            style={{backgroundColor: 'white'}}
+            textStyle={{fontSize: 18, color: '#000000'}}>
+              Sign Up
+          </Button>
+
+          { this.state.loading ? <Text> Loading ... </Text> : null }
+        </View>
+
+      </View>
+    );
     return (
-      <View>
-        <Text> Halftime </Text>
-        <Button onPress={ () => this.props.navigation.push('SignIn') } title="Se connecter" />
-        <Button onPress={ () => this.props.navigation.push('SignUp') } title="S'inscrire" />
-        { this.state.loading ? <Text> Loading ... </Text> : null }
-      </View>    
+      <AppLayout content={content}></AppLayout>  
     );
   }
 
@@ -57,6 +80,7 @@ class LoginScreen extends React.Component<any, state> {
     this.checkLocalKey().then( (user_key: string|boolean) =>{
       if (user_key !== false){ //Si une clé est dans le local storage, on se connecte direct
         this.props.actions.login(user_key);
+        this.setState({ loading: false });
         this.props.navigation.navigate('MyAccount');
       }
     });
