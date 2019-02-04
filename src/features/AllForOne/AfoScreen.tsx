@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as AfoActions from './actions';
 import AppLayout from '../../components/layout';
+import SpotifySearch from '../Spotify/SpotifySearch';
 
 class AfoScreen extends React.Component<any> {
 
@@ -13,23 +14,30 @@ class AfoScreen extends React.Component<any> {
   render() {
     if (this.props.spotifyLogged == true){
       var content = (
-        <View style={{ borderRadius: 10, borderWidth: 1, borderStyle: 'solid', borderColor: 'black', height: '30%', padding:'5%'}}>
-          <Text> Hi {this.props.loggedAs} </Text>
-          <Button
-            onPress={ () => { this.props.navigation.push('Create'); } }
-            style={{backgroundColor: 'black'}}
-            textStyle={{fontSize: 18, color: 'white'}}
-          >
-            Créer une salle
-          </Button>
-          <View style={{height: 5}}/>
-          <Button
-            onPress={ () => { this.props.navigation.push('Join'); } }
-            style={{backgroundColor: 'black'}}
-            textStyle={{fontSize: 18, color: 'white'}}
-          >
-            Rejoindre une salle
-          </Button>
+        <View>
+          <View style={{ borderRadius: 10, height: '30%', padding:'5%'}}>
+            <Button
+              onPress={ () => { this.props.navigation.push('Create'); } }
+              style={{backgroundColor: 'black'}}
+              textStyle={{fontSize: 18, color: 'white'}}
+            >
+              Créer une salle
+            </Button>
+            <View style={{height: 5}}/>
+            <Button
+              onPress={ () => { this.props.navigation.push('Join'); } }
+              style={{backgroundColor: 'black'}}
+              textStyle={{fontSize: 18, color: 'white'}}
+            >
+              Rejoindre une salle
+            </Button>
+          </View>
+          
+          <View style={{height: 40}}></View>
+          
+          <View style={{ borderRadius: 10, height: '30%', padding:'5%'}}>
+            <SpotifySearch />
+          </View>
         </View>
       );
     } else {
