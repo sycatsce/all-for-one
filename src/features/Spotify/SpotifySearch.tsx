@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList } from 'react-native';
-import Button from 'apsl-react-native-button';
+import { View, Text, FlatList, TouchableHighlight } from 'react-native';
 import Spotify from 'rn-spotify-sdk';
 import { SearchBar } from 'react-native-elements';
 
@@ -12,29 +11,29 @@ export default class SpotifySearch extends React.Component<any, state> {
         super(props);
 		this.state = {
             searchInput: '',
-            dataSource: [
-                
-            ]
+            dataSource: []
         };
 	}
 
     searchSong(searchInput: any){
         if (searchInput){
             this.setState({searchInput});
-            Spotify.search(searchInput, ['track', 'artist']).then( (result: any) => {
+            Spotify.search(searchInput, ['track']).then( (result: any) => {
                 var songs: Array<Object> = [];
                 result.tracks.items.forEach((element:any) => {
-                    console.log(element.name + ' - ' + element.artists[0].name);
                     songs.push( { key: element.id, song: element.name, artist: element.artists[0].name } )
                 });
                 this.setState({ dataSource: songs });
-        
             }).catch( (err: any) => {
                 console.log(err);
             });
         } else {
             this.setState({ dataSource: [], searchInput: '' });
         }
+    }
+
+    playSong(id: string){
+        Spotify.playURI('spotify:track:'+id, 0, 0).then( () => { console.log ('done'); });
     }
 
     render() {
@@ -51,7 +50,18 @@ export default class SpotifySearch extends React.Component<any, state> {
                     <FlatList
                         contentContainerStyle={{ flexGrow: 1 }}
                         data={this.state.dataSource}
-                        renderItem={ ({item}:any) => <Text style={{ fontSize: 20 }}>{item.song + ' - ' + item.artist}</Text>}
+                        renderItem={ ({item}:any) =>
+                            <TouchableHighlight
+                                onPress={ () => { this.playSong(item.key) }}
+                                style={{ height: 40}}
+                            > 
+                                <View>
+                                    <Text> 
+                                        {item.song + ' - ' + item.artist} 
+                                    </Text>
+                                </View> 
+                            </TouchableHighlight> 
+                        }
                     />
                 </View>
             </View>

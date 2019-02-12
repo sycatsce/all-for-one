@@ -30,11 +30,15 @@ class LoginScreen extends React.Component<any, state> {
     let content = (
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
 
-        <View style={{ height:'50%', marginTop: '20%'}}>
+        <View style={{ height: '20%'}} />
+
+        <View style={{ }}>
           <Text style={{ fontFamily: 'GeosansLight', textAlign: 'center', fontSize: 60, color: 'black'}}> All For One </Text>
         </View>
 
-        <View style={{ width: '90%', marginTop: '30%'}}>
+        <View style={{ height: '50%' }} />
+
+        <View style={{ width: '90%'}}>
           <Button 
             onPress={ () => this.props.navigation.push('SignIn') }
             style={{backgroundColor: 'white'}}
@@ -82,6 +86,8 @@ class LoginScreen extends React.Component<any, state> {
         this.props.actions.login(user_key);
         this.setState({ loading: false });
         this.props.navigation.navigate('MyAccount');
+      }else {
+        this.setState({ loading: false });
       }
     });
   }
