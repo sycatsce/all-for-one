@@ -1,30 +1,27 @@
 const INITIAL_STATE = {
-    datas : {
-        description: "Picking an option",
-        step: "SELECT",
-    }
+    inARoom : false,
+    isHost : false,
+    roomName : null,
+    roomDescription: null,
+    limit: null,
 };
-
 
 const afoReducer = (state = INITIAL_STATE, action: {type: string, payload:any}) => {
 
     switch (action.type) {
-        case 'SELECT_OPTION':
-            return Object.assign( {}, state, { datas : action.payload } );
-
-        case 'JOIN_ROOM':
-            return Object.assign( {}, state, { datas : action.payload } );
-
-        case 'CREATE_ROOM':
-            return Object.assign( {}, state, { datas : action.payload } );
-        case 'BACK':
-            if (action.payload == "CREATE" || action.payload == "JOIN"){
-                return Object.assign( {}, state, INITIAL_STATE );
+        case "CREATE_ROOM":
+            let newState = {
+                roomName: action.payload.roomName,
+                roomDescription: action.payload.roomDescription,
+                limit: action.payload.limit,
+                inARoom: true,
+                isHost: true
             }
-
+            return Object.assign( {}, state, newState );
         default:
             return state
-        }
+    }
+
 };
 
 export default afoReducer;

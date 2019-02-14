@@ -60,7 +60,7 @@ class SignInScreen extends React.Component<any, state> {
 						title="Sign In"
 						onPress={() => { this.setState({ loading: true }); this.userLogin() }}
 						style={{backgroundColor: 'white'}}
-            textStyle={{fontSize: 18, color: '#003366'}}>
+            			textStyle={{fontSize: 18, color: '#003366'}}>
 						Sign In
 					</Button>
 				</View>

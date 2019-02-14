@@ -26,7 +26,6 @@ class JoinRoom extends React.Component<any> {
 const mapStateToProps = (state:any) => {
   return {
     loggedAs: state.loginReducer.loggedAs,
-    step: state.afoReducer.datas.step,
   }
 }
 

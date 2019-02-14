@@ -3,6 +3,7 @@ package com.allforone;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.github.traviskn.rnuuidgenerator.RNUUIDGeneratorPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.lufinkey.react.eventemitter.RNEventEmitterPackage;
 import com.lufinkey.react.spotify.RNSpotifyPackage;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNUUIDGeneratorPackage(),
             new VectorIconsPackage(),
             new RNEventEmitterPackage(),
             new RNSpotifyPackage(),

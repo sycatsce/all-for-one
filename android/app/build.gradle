@@ -141,6 +141,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-uuid-generator')
     compile project(':react-native-vector-icons')
     compile project(':react-native-gesture-handler')
     compile project(':react-native-events')

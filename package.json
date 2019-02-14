@@ -16,13 +16,14 @@
     "react-native": "0.57.8",
     "react-native-elements": "^1.0.0",
     "react-native-gesture-handler": "^1.0.12",
-    "react-native-socketio": "^0.3.0",
     "react-native-textinput-effects": "^0.4.2",
+    "react-native-uuid-generator": "^5.0.0",
     "react-native-vector-icons": "^6.2.0",
     "react-navigation": "^3.0.9",
     "react-redux": "^6.0.0",
     "redux": "^4.0.1",
-    "rn-spotify-sdk": "^1.1.13"
+    "rn-spotify-sdk": "^1.1.13",
+    "socket.io-client": "^2.2.0"
   },
   "devDependencies": {
     "@types/jest": "^23.3.13",

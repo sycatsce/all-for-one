@@ -48,7 +48,7 @@ const AfoStack = createStackNavigator({
   Join: JoinRoom
 });
 
-const BottomTabNavigator = createBottomTabNavigator({  
+const BottomTabNavigator = createBottomTabNavigator({
   MyAccount: {
     screen: MyAccountScreen,
     navigationOptions: {
