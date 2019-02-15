@@ -5,3 +5,4 @@ declare module 'react-native-vector-icons/FontAwesome';
 declare module 'react-native-elements';
 declare module 'socket.io-client';
 declare module 'react-native-uuid-generator';
+declare module 'react-native-modal';

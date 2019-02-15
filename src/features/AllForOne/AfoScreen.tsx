@@ -6,16 +6,9 @@ import { connect } from 'react-redux';
 import * as AfoActions from './actions';
 import AppLayout from '../../components/layout';
 
-type state = { test: string };
-
-class AfoScreen extends React.Component<any, state> {
+class AfoScreen extends React.Component<any> {
 
   static navigationOptions = { header: null }
-
-	constructor(props: any) {
-		super(props);
-		this.state = { test: 'aoe' };
-  }
   
   render() {
     var content;
@@ -36,7 +29,7 @@ class AfoScreen extends React.Component<any, state> {
                   style={{backgroundColor: 'black'}}
                   textStyle={{fontSize: 18, color: 'white'}}
                 >
-                  {this.props.inARoom ? 'true' : 'false'}
+                  Créer une salle
                 </Button>
                 <View style={{height: 5}}/>
                 <Button
@@ -46,13 +39,7 @@ class AfoScreen extends React.Component<any, state> {
                 >
                   Rejoindre une salle
                 </Button>
-                <Button
-                  onPress={ () => { this.setState({test: 'test'}) } }
-                  style={{backgroundColor: 'black'}}
-                  textStyle={{fontSize: 18, color: 'white'}}
-                >
-                  {this.state.test}
-                </Button>
+
               </View>
             </View>
           );

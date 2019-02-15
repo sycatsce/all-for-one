@@ -54,9 +54,10 @@ class CreateRoom extends React.Component<any, state> {
 
 				<View>
 					<Button
-						onPress={() => { this.createRoom() }}
+						onPress={() => { this.createRoom(); }}
 						style={{backgroundColor: 'white'}}
-            textStyle={{fontSize: 18, color: '#003366'}}>
+            textStyle={{fontSize: 18, color: '#003366'}}
+          >
 						Create
 					</Button>
 				</View>
@@ -73,6 +74,7 @@ class CreateRoom extends React.Component<any, state> {
 
   createRoom(){
     this.props.actions.createRoomAction( this.state.roomName, this.state.description, this.state.limit, this.props.loggedAs );
+    this.props.navigation.dispatch( NavigationActions.back( { key: null }) );
   }
 }
 

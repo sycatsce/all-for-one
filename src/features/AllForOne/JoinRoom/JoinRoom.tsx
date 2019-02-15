@@ -1,25 +1,121 @@
 import React from 'react';
-import { Text, Button, View, BackHandler } from 'react-native';
+import { Text, Button, View, BackHandler, TouchableHighlight, FlatList, TouchableOpacity } from 'react-native';
+import Modal from "react-native-modal";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as AfoActions from '../actions';
+import AppLayout from '../../../components/layout';
+import { SearchBar } from 'react-native-elements';
+import * as api from '../../../api/rooms';
+import { NavigationActions } from 'react-navigation';
 
-class JoinRoom extends React.Component<any> {
+type state = { needle: string, dataSource: any, isModalVisible: boolean, roomInfos: { roomName: string, roomDescription: string, limit: number, host: string, uuid: string}};
+
+class JoinRoom extends React.Component<any, state> {
+
+  constructor(props: any) {
+    super(props);
+    this.state = {
+            needle: '',
+            dataSource: [],
+            isModalVisible: false,
+            roomInfos: { roomName: '', roomDescription: '', limit: 0, host: '', uuid: ''}
+        };
+    }
 
   componentDidMount(){
     BackHandler.addEventListener('hardwareBackPress', () => { this.handleBackPress(); return true; });
   }
 
   render() {
-    return (
+    let roomInfos: {roomName: string} = { roomName : "" };
+    let content = (
       <View>
-        <Text> Join a Room </Text>
+        <Button title="ok" onPress={ () => this.searchRoom(this.state.needle) }></Button>
+        <SearchBar
+          lightTheme={true}
+          containerStyle={{ backgroundColor: 'white' }}
+          inputContainerStyle={{ backgroundColor: 'black' }}
+          onChangeText={ (needle: string) => { this.setState( {needle } ) }}
+          value={this.state.needle}
+        />
+
+        <View>
+          <FlatList
+            contentContainerStyle={{ flexGrow: 1 }}
+            data={this.state.dataSource}
+            renderItem={ ({item}:any) =>
+              <TouchableHighlight
+                  onPress={ () => { this._toggleModal(item); }}
+                  style={{ height: 40}}
+              >
+                <View>
+                    <Text>
+                        {item.host + "|" + item.roomName + "|" + item.roomDescription} 
+                    </Text>
+                </View>
+              </TouchableHighlight> 
+            }
+          />
+        </View>
+
+        <Modal style={{ backgroundColor: 'white', marginTop: '40%', marginBottom: '40%' }} isVisible={this.state.isModalVisible}>
+          <View style={{ flex: 1 }}>
+
+            <Text> Room : {this.state.roomInfos.roomName} </Text>
+            <Text> Description : {this.state.roomInfos.roomDescription} </Text>
+            <Text> Host : {this.state.roomInfos.host} </Text>
+
+            <Button title="Join" onPress={ () => { this.joinRoom(); } } />
+            <Button title="Cancel" onPress={ () => { this._toggleModal(); } } />
+          </View>
+        </Modal>
+
       </View>
     );
+    return (
+      <AppLayout content={content}></AppLayout>
+    );
+  }
+
+  _toggleModal = (item?: {roomName: string, roomDescription: string, limit: number, host: string, uuid: string}) => {
+    if (item){
+      this.setState({ roomInfos: item });
+    }
+    this.setState({ isModalVisible: !this.state.isModalVisible });
   }
 
   handleBackPress(){
     this.props.actions.backAction(this.props.step);
+  }
+
+  searchRoom(needle: string){
+    if(needle){
+      this.setState({ needle }); 
+      api.searchRoom(this.state.needle).then((datas:any) => {
+        if(!datas.error){
+          var rooms: Array<Object> = [];
+          for( var uuid in datas ){
+            rooms.push({ roomName: datas[uuid].roomName, roomDescription: datas[uuid].roomDescription, host: datas[uuid].host, uuid: datas[uuid].uuid })
+          }
+          this.setState({dataSource: rooms});
+          console.log(this.state.dataSource);
+        }
+      }).catch(() => { console.log('rorr'); })
+    }
+  }
+
+  joinRoom(){
+    this.props.actions.joinRoomAction(
+      this.props.loggedAs,
+      this.state.roomInfos.roomName,
+      this.state.roomInfos.roomDescription,
+      this.state.roomInfos.limit,
+      this.state.roomInfos.host,
+      this.state.roomInfos.uuid
+
+    );
+    this.props.navigation.dispatch( NavigationActions.back( { key: null }) );
   }
 }
 
