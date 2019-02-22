@@ -5,11 +5,22 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as AfoActions from './actions';
 import AppLayout from '../../components/layout';
+import { socket } from '../../api/socket';
 
-class AfoScreen extends React.Component<any> {
+class AfoScreen extends React.Component<any, any> {
 
   static navigationOptions = { header: null }
+  socket : any;
   
+  constructor(props: any) {
+    super(props);
+    this.socket = socket;
+  }
+
+  componentDidMount(){
+    this.socket.on('new-participant', (datas: any) => { this.props.actions.updateParticipantsAction(datas.nbParticipants, datas.user); });
+  }
+
   render() {
     var content;
     if (this.props.spotifyLogged == true){
@@ -18,6 +29,7 @@ class AfoScreen extends React.Component<any> {
           <View>
             <Text> {this.props.roomName} </Text>
             <Text> {this.props.roomDescription} </Text>
+            <Text> {this.props.nbParticipants} / {this.props.limit} </Text>
           </View>
         );
       } else {
@@ -65,7 +77,9 @@ const mapStateToProps = (state:any) => {
     isHost: state.afoReducer.isHost,
     roomName: state.afoReducer.roomName,
     roomDescription: state.afoReducer.roomDescription,
-    limit: state.afoReducer.limit
+    limit: state.afoReducer.limit,
+    nbParticipants: state.afoReducer.nbParticipants,
+    participantsList: state.afoReducer.participantsList
   }
 }
 

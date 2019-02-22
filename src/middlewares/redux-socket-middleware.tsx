@@ -1,22 +1,21 @@
-import io from 'socket.io-client';
 import UUIDGenerator from 'react-native-uuid-generator';
+import io from 'socket.io-client';
+import { socket } from '../api/socket';
 
-export const socketMiddleware = (url: string) => {
+export const socketMiddleware = (uri: any) => {
     return (store: any) => {
-
-        let socket = io(url);
-
+        var ioClient = socket;
         return (next: any) => (action: any) => {
             if( action.websocket == true ){
                 if (action.type == "CREATE_ROOM"){
                     UUIDGenerator.getRandomUUID().then((uuid: string) => {
                         action.payload.uuid = uuid;
-                        socket.emit('create-room', action.payload);
+                        ioClient.emit('create-room', action.payload);
                         next(action);
                     });
                 }
                 if (action.type == "JOIN_ROOM"){
-                    socket.emit('join-room', action.payload);
+                    ioClient.emit('join-room', action.payload);
                     next(action);
                 }
             } else {

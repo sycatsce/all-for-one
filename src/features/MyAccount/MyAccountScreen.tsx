@@ -7,7 +7,7 @@ import AppLayout from '../../components/layout';
 class MyAccountScreen extends React.Component<any> {
   render() {
     let content = (
-      <View style={{ borderRadius: 10, borderWidth: 1, borderStyle: 'solid', borderColor: 'black', height: '30%', padding:'5%'}}>
+      <View style={{ height: '30%', padding:'5%'}}>
         <Text> My Account </Text>
         <SpotifyAuth loggedIn={ () => this.props.navigation.navigate('AllForOne') }/>
       </View>

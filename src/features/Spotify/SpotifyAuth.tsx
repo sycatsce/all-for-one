@@ -5,6 +5,7 @@ import Spotify from 'rn-spotify-sdk';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as SpotifyActions from './actions';
+import { spotifyAuthInfos } from '../../api/constants';
 
 class SpotifyAuth extends React.Component<any> {
 
@@ -13,12 +14,7 @@ class SpotifyAuth extends React.Component<any> {
   }
 
   initSpotify(){
-    Spotify.initialize({
-      "clientID":"1902ccc05b954f14bc57d7cf73363e52",
-      "sessionUserDefaultsKey":"SpotifySession",
-      "redirectURL":"com.allforone://auth",
-      "scopes":["user-read-private", "playlist-read", "playlist-read-private", "streaming"],
-    }).then((loggedIn: any) => {
+    Spotify.initialize(spotifyAuthInfos).then((loggedIn: any) => {
       if(loggedIn) {
         console.log('Déjà connecté');
         Spotify.getMe().then((user: any) => {

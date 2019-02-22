@@ -8,27 +8,42 @@ import AppLayout from '../../../components/layout';
 import { SearchBar } from 'react-native-elements';
 import * as api from '../../../api/rooms';
 import { NavigationActions } from 'react-navigation';
+import { socket } from '../../../api/socket';
 
-type state = { needle: string, dataSource: any, isModalVisible: boolean, roomInfos: { roomName: string, roomDescription: string, limit: number, host: string, uuid: string}};
+type state = {
+  needle: string,
+  dataSource: any, isModalVisible: boolean, 
+  roomInfos: { 
+    roomName: string,
+    roomDescription: string,
+    limit: number,
+    host: string,
+    uuid: string,
+    nbParticipants: number
+  }
+};
 
 class JoinRoom extends React.Component<any, state> {
 
+  socket: any;
+
   constructor(props: any) {
     super(props);
+    this.socket = socket;
     this.state = {
-            needle: '',
-            dataSource: [],
-            isModalVisible: false,
-            roomInfos: { roomName: '', roomDescription: '', limit: 0, host: '', uuid: ''}
-        };
-    }
+      needle: '',
+      dataSource: [],
+      isModalVisible: false,
+      roomInfos: { roomName: '', roomDescription: '', limit: 0, host: '', uuid: '', nbParticipants: 0}
+    };
+  }
 
   componentDidMount(){
     BackHandler.addEventListener('hardwareBackPress', () => { this.handleBackPress(); return true; });
+    this.socket.on('new-participant', (datas: any) => { this.props.actions.updateParticipantsAction(datas.nbParticipants, datas.user); });
   }
 
   render() {
-    let roomInfos: {roomName: string} = { roomName : "" };
     let content = (
       <View>
         <Button title="ok" onPress={ () => this.searchRoom(this.state.needle) }></Button>
@@ -51,7 +66,7 @@ class JoinRoom extends React.Component<any, state> {
               >
                 <View>
                     <Text>
-                        {item.host + "|" + item.roomName + "|" + item.roomDescription} 
+                        {item.host + " - " + item.roomName + " - " + item.roomDescription + " - " + item.nbParticipants + "/" + item.limit} 
                     </Text>
                 </View>
               </TouchableHighlight> 
@@ -65,6 +80,7 @@ class JoinRoom extends React.Component<any, state> {
             <Text> Room : {this.state.roomInfos.roomName} </Text>
             <Text> Description : {this.state.roomInfos.roomDescription} </Text>
             <Text> Host : {this.state.roomInfos.host} </Text>
+            <Text> </Text>
 
             <Button title="Join" onPress={ () => { this.joinRoom(); } } />
             <Button title="Cancel" onPress={ () => { this._toggleModal(); } } />
@@ -78,7 +94,7 @@ class JoinRoom extends React.Component<any, state> {
     );
   }
 
-  _toggleModal = (item?: {roomName: string, roomDescription: string, limit: number, host: string, uuid: string}) => {
+  _toggleModal = (item?: {roomName: string, roomDescription: string, limit: number, host: string, uuid: string, nbParticipants: number}) => {
     if (item){
       this.setState({ roomInfos: item });
     }
@@ -86,7 +102,7 @@ class JoinRoom extends React.Component<any, state> {
   }
 
   handleBackPress(){
-    this.props.actions.backAction(this.props.step);
+    this.props.navigation.dispatch( NavigationActions.back( { key: null }) );
   }
 
   searchRoom(needle: string){
@@ -96,7 +112,14 @@ class JoinRoom extends React.Component<any, state> {
         if(!datas.error){
           var rooms: Array<Object> = [];
           for( var uuid in datas ){
-            rooms.push({ roomName: datas[uuid].roomName, roomDescription: datas[uuid].roomDescription, host: datas[uuid].host, uuid: datas[uuid].uuid })
+            rooms.push({
+              roomName: datas[uuid].roomName,
+              roomDescription: datas[uuid].roomDescription,
+              host: datas[uuid].host,
+              uuid: datas[uuid].uuid,
+              limit: datas[uuid].limit,
+              nbParticipants: datas[uuid].nbParticipants
+            })
           }
           this.setState({dataSource: rooms});
           console.log(this.state.dataSource);
@@ -113,7 +136,6 @@ class JoinRoom extends React.Component<any, state> {
       this.state.roomInfos.limit,
       this.state.roomInfos.host,
       this.state.roomInfos.uuid
-
     );
     this.props.navigation.dispatch( NavigationActions.back( { key: null }) );
   }

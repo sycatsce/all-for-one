@@ -25,3 +25,13 @@ export const joinRoomAction = (user: string, roomName: string, description: stri
         }
     }
 );
+
+export const updateParticipantsAction = ( nbParticipants: number, user: string ) => (
+    {
+        type: 'NEW_USER',
+        payload: {
+            nbParticipants: nbParticipants,
+            user: user
+        }
+    }
+);
