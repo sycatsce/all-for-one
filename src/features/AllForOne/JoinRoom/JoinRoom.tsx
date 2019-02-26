@@ -12,7 +12,8 @@ import { socket } from '../../../api/socket';
 
 type state = {
   needle: string,
-  dataSource: any, isModalVisible: boolean, 
+  dataSource: any,
+  isModalVisible: boolean, 
   roomInfos: { 
     roomName: string,
     roomDescription: string,

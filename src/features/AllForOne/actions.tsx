@@ -1,4 +1,4 @@
-export const createRoomAction = (roomName: string, description: string, limit: number, host: string) => (
+export const createRoomAction = (roomName: string, description: string, limit: number, host: string, uuid: string) => (
     {
         type: 'CREATE_ROOM',
         websocket: true,
@@ -6,7 +6,8 @@ export const createRoomAction = (roomName: string, description: string, limit: n
             roomName: roomName,
             roomDescription: description,
             limit: limit,
-            host: host
+            host: host,
+            uuid: uuid
         }
     }
 );
@@ -35,3 +36,16 @@ export const updateParticipantsAction = ( nbParticipants: number, user: string )
         }
     }
 );
+
+export const enqueueSongAction = ( songID: string, songName: string, roomUuid: string, user: string ) => (
+    {
+        type: 'ENQUEUE_SONG',
+        websocket: true,
+        payload: {
+            songID: songID,
+            songName: songName,
+            roomUuid: roomUuid,
+            user: user
+        }
+    }
+)

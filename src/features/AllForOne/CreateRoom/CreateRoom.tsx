@@ -6,7 +6,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as AfoActions from '../actions';
 import AppLayout from '../../../components/layout';
-import { NavigationActions, StackActions } from 'react-navigation';
+import { NavigationActions } from 'react-navigation';
+import UUIDGenerator from 'react-native-uuid-generator';
 
 type state = { roomName: string, description: string, limit: number };
 
@@ -78,8 +79,10 @@ class CreateRoom extends React.Component<any, state> {
   }
 
   createRoom(){
-    this.props.actions.createRoomAction( this.state.roomName, this.state.description, this.state.limit, this.props.loggedAs );
-    this.props.navigation.dispatch( NavigationActions.back( { key: null }) );
+    UUIDGenerator.getRandomUUID().then((uuid: string) => {
+      this.props.actions.createRoomAction( this.state.roomName, this.state.description, this.state.limit, this.props.loggedAs, uuid );
+      this.props.navigation.dispatch( NavigationActions.back( { key: null }) );
+    });
   }
 }
 

@@ -7,7 +7,8 @@ import * as AfoActions from './actions';
 import AppLayout from '../../components/layout';
 import { socket } from '../../api/socket';
 
-class AfoScreen extends React.Component<any, any> {
+type state = { queue: Object[] }
+class AfoScreen extends React.Component<any, state> {
 
   static navigationOptions = { header: null }
   socket : any;
@@ -15,10 +16,12 @@ class AfoScreen extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.socket = socket;
+    this.state = { queue: [] }
   }
 
   componentDidMount(){
     this.socket.on('new-participant', (datas: any) => { this.props.actions.updateParticipantsAction(datas.nbParticipants, datas.user); });
+    this.socket.on('new-enqueued-song', (datas: any) => { this.props.actions.enqueueSongAction( datas.songID, datas.songName, this.props.roomUuid, this.props.loggedAs ); });
   }
 
   render() {
@@ -30,6 +33,19 @@ class AfoScreen extends React.Component<any, any> {
             <Text> {this.props.roomName} </Text>
             <Text> {this.props.roomDescription} </Text>
             <Text> {this.props.nbParticipants} / {this.props.limit} </Text>
+            { this.props.songsQueue.length == 0 ?
+              <Text> No Songs in the queue </Text>
+            : this.props.songsQueue.map( (value:any, key: any) => {
+                return ( <Text> {key} {value.songName} </Text> );
+              })
+            }
+            <Button
+                  onPress={ () => { this.props.navigation.push('Enqueue'); } }
+                  style={{backgroundColor: 'white'}}
+                  textStyle={{fontSize: 18, color: 'black'}}
+            >
+              Enqueue a song
+            </Button>
           </View>
         );
       } else {
@@ -51,7 +67,6 @@ class AfoScreen extends React.Component<any, any> {
                 >
                   Rejoindre une salle
                 </Button>
-
               </View>
             </View>
           );
@@ -77,9 +92,11 @@ const mapStateToProps = (state:any) => {
     isHost: state.afoReducer.isHost,
     roomName: state.afoReducer.roomName,
     roomDescription: state.afoReducer.roomDescription,
+    roomUuid: state.afoReducer.roomUuid,
     limit: state.afoReducer.limit,
     nbParticipants: state.afoReducer.nbParticipants,
-    participantsList: state.afoReducer.participantsList
+    participantsList: state.afoReducer.participantsList,
+    songsQueue: state.afoReducer.songsQueue
   }
 }
 

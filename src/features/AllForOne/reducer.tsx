@@ -3,19 +3,21 @@ const INITIAL_STATE = {
     isHost : false,
     roomName : null,
     roomDescription: null,
+    roomUuid: null,
     limit: null,
     nbParticipants: null,
-    participantsList: []
+    participantsList: [],
+    songsQueue: []
 };
 
 const afoReducer = (state = INITIAL_STATE, action: {type: string, payload:any}) => {
 
     switch (action.type) {
         case "CREATE_ROOM":
-            let cparticipantsList = [ ...state.participantsList, action.payload.user]
             let cNewState = {
                 roomName: action.payload.roomName,
                 roomDescription: action.payload.roomDescription,
+                roomUuid: action.payload.uuid,
                 limit: action.payload.limit,
                 inARoom: true,
                 isHost: true,
@@ -27,6 +29,7 @@ const afoReducer = (state = INITIAL_STATE, action: {type: string, payload:any}) 
             let jNewState = {
                 roomName: action.payload.roomName,
                 roomDescription: action.payload.roomDescription,
+                roomUuid: action.payload.uuid,
                 limit: action.payload.limit,
                 inARoom: true,
                 isHost: false,
@@ -34,7 +37,9 @@ const afoReducer = (state = INITIAL_STATE, action: {type: string, payload:any}) 
             }
             return Object.assign( {}, state, jNewState );
         case "NEW_USER":
-            return Object.assign( {}, state, { nbParticipants: action.payload.nbParticipants, participantsList: [ ...state.participantsList, action.payload.user] } )
+            return Object.assign( {}, state, { nbParticipants: action.payload.nbParticipants, participantsList: [ ...state.participantsList, action.payload.user] } );
+        case "ENQUEUE_SONG":
+            return Object.assign( {}, state, { songsQueue: [ ...state.songsQueue, { songName: action.payload.songName, songID: action.payload.songID } ] } );
         default:
             return state
     }

@@ -9,6 +9,7 @@ import JoinRoom from '../features/AllForOne/JoinRoom/JoinRoom';
 import CreateRoom from '../features/AllForOne/CreateRoom/CreateRoom';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import React from 'react';
+import EnqueueSongScreen from '../features/AllForOne/EnqueueSong/EnqueueSong';
 
 const LoginStack = createStackNavigator({
   Login: { screen: LoginScreen },
@@ -45,7 +46,9 @@ const LoginStack = createStackNavigator({
 const AfoStack = createStackNavigator({
   Main: AfoScreen,
   Create: CreateRoom,
-  Join: JoinRoom
+  Join: JoinRoom,
+  Enqueue: EnqueueSongScreen,
+
 });
 
 const BottomTabNavigator = createBottomTabNavigator({

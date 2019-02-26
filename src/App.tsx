@@ -4,12 +4,10 @@ import Reducers from './reducers';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { socketMiddleware } from './middlewares/redux-socket-middleware';
-import { socketURI } from './api/constants';
-import io from 'socket.io-client';
 
 const store = createStore(
   Reducers,
-  applyMiddleware(socketMiddleware(socketURI))
+  applyMiddleware(socketMiddleware())
 );
 
 export default class App extends React.Component {

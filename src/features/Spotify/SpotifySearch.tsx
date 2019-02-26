@@ -3,15 +3,16 @@ import { View, Text, FlatList, TouchableHighlight } from 'react-native';
 import Spotify from 'rn-spotify-sdk';
 import { SearchBar } from 'react-native-elements';
 
-type state = { searchInput: string, dataSource: any };
+type state = { searchInput: string, dataSource: any, isModalVisible: boolean };
 
-export default class SpotifySearch extends React.Component<any, state> {
+export default class SpotifySearch extends React.Component<any, state>{
 
     constructor(props: any) {
         super(props);
 		this.state = {
             searchInput: '',
-            dataSource: []
+            dataSource: [],
+            isModalVisible: false
         };
 	}
 
@@ -32,10 +33,6 @@ export default class SpotifySearch extends React.Component<any, state> {
         }
     }
 
-    playSong(id: string){
-        Spotify.playURI('spotify:track:'+id, 0, 0).then( () => { console.log ('done'); });
-    }
-
     render() {
         return(
             <View>
@@ -52,15 +49,15 @@ export default class SpotifySearch extends React.Component<any, state> {
                         data={this.state.dataSource}
                         renderItem={ ({item}:any) =>
                             <TouchableHighlight
-                                onPress={ () => { this.playSong(item.key) }}
+                                onPress={ () => { this.props.func(item.key, item.song + " - " + item.artist); }}
                                 style={{ height: 40}}
-                            > 
+                            >
                                 <View>
-                                    <Text> 
-                                        {item.song + ' - ' + item.artist} 
+                                    <Text>
+                                        {item.song + ' - ' + item.artist}
                                     </Text>
-                                </View> 
-                            </TouchableHighlight> 
+                                </View>
+                            </TouchableHighlight>
                         }
                     />
                 </View>
