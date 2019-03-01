@@ -6,8 +6,10 @@ import { connect } from 'react-redux';
 import * as AfoActions from './actions';
 import AppLayout from '../../components/layout';
 import { socket } from '../../api/socket';
+import Spotify from 'rn-spotify-sdk';
 
-type state = { queue: Object[] }
+type state = { musicPos: number }
+
 class AfoScreen extends React.Component<any, state> {
 
   static navigationOptions = { header: null }
@@ -16,7 +18,7 @@ class AfoScreen extends React.Component<any, state> {
   constructor(props: any) {
     super(props);
     this.socket = socket;
-    this.state = { queue: [] }
+    this.state = { musicPos: 0 }
   }
 
   componentDidMount(){
@@ -35,10 +37,18 @@ class AfoScreen extends React.Component<any, state> {
             <Text> {this.props.nbParticipants} / {this.props.limit} </Text>
             { this.props.songsQueue.length == 0 ?
               <Text> No Songs in the queue </Text>
-            : this.props.songsQueue.map( (value:any, key: any) => {
-                return ( <Text> {key} {value.songName} </Text> );
+            : this.props.songsQueue.map( (value: any, key: any) => {
+                return ( <Text> {key + 1 + ". " + value.songName} </Text> );
               })
             }
+
+            { this.props.songsQueue.length > 0 ? 
+              <Button
+                onPress={ () => { this.startQueue(); }}
+              >
+                Start Queue
+              </Button> : null }
+
             <Button
                   onPress={ () => { this.props.navigation.push('Enqueue'); } }
                   style={{backgroundColor: 'white'}}
@@ -80,6 +90,22 @@ class AfoScreen extends React.Component<any, state> {
       );
     }
     return ( <AppLayout content={content}></AppLayout> )
+  }
+
+  startQueue(){
+    if (this.props.songsQueue[this.state.musicPos]){
+      Spotify.playURI('spotify:track:' + this.props.songsQueue[this.state.musicPos].songID, 0, 0).then( (error: any) => {
+        if(!error){
+          Spotify.once('trackChange', (event: any) => {
+            Spotify.once('trackChange', (event: any) => {
+              console.log('Track Change');
+              this.setState({ musicPos: this.state.musicPos + 1 });
+              this.startQueue();
+            });
+          });
+        }
+      });
+    }
   }
 
 } 
