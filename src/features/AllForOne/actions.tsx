@@ -49,3 +49,13 @@ export const enqueueSongAction = ( songID: string, songName: string, roomUuid: s
         }
     }
 )
+
+export const updateSongQueueAction = ( songID: string, songName: string ) => (
+    {
+        type: 'UPDATE_QUEUE',
+        payload: {
+            songID: songID,
+            songName: songName,
+        }
+    }
+)

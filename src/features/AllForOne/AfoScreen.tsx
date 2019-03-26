@@ -23,7 +23,7 @@ class AfoScreen extends React.Component<any, state> {
 
   componentDidMount(){
     this.socket.on('new-participant', (datas: any) => { this.props.actions.updateParticipantsAction(datas.nbParticipants, datas.user); });
-    this.socket.on('new-enqueued-song', (datas: any) => { this.props.actions.enqueueSongAction( datas.songID, datas.songName, this.props.roomUuid, this.props.loggedAs ); });
+    this.socket.on('update-song-queue', (datas: any) => { this.props.actions.updateSongQueueAction( datas.songID, datas.songName ); });
   }
 
   render() {
@@ -55,6 +55,14 @@ class AfoScreen extends React.Component<any, state> {
                   textStyle={{fontSize: 18, color: 'black'}}
             >
               Enqueue a song
+            </Button>
+
+            <Button
+                  onPress={ () => { this.props.navigation.push('Enqueue'); } }
+                  style={{backgroundColor: 'white'}}
+                  textStyle={{fontSize: 18, color: 'black'}}
+            >
+              Leave Room
             </Button>
           </View>
         );
@@ -98,7 +106,6 @@ class AfoScreen extends React.Component<any, state> {
         if(!error){
           Spotify.once('trackChange', (event: any) => {
             Spotify.once('trackChange', (event: any) => {
-              console.log('Track Change');
               this.setState({ musicPos: this.state.musicPos + 1 });
               this.startQueue();
             });

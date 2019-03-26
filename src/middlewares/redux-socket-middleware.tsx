@@ -2,9 +2,9 @@ import { socket } from '../api/socket';
 
 export const socketMiddleware = () => {
     return (store: any) => {
-        var ioClient = socket;
         return (next: any) => (action: any) => {
             if( action.websocket == true ){
+                var ioClient = socket;
                 if (action.type == "CREATE_ROOM"){
                     ioClient.emit('create-room', action.payload);
                     next(action);

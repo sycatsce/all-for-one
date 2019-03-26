@@ -40,6 +40,8 @@ const afoReducer = (state = INITIAL_STATE, action: {type: string, payload:any}) 
             return Object.assign( {}, state, { nbParticipants: action.payload.nbParticipants, participantsList: [ ...state.participantsList, action.payload.user] } );
         case "ENQUEUE_SONG":
             return Object.assign( {}, state, { songsQueue: [ ...state.songsQueue, { songName: action.payload.songName, songID: action.payload.songID } ] } );
+        case "UPDATE_QUEUE":
+            return Object.assign( {}, state, { songsQueue: [ ...state.songsQueue, { songName: action.payload.songName, songID: action.payload.songID } ] } );
         default:
             return state
     }

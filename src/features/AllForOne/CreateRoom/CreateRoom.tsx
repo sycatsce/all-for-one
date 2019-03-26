@@ -75,7 +75,7 @@ class CreateRoom extends React.Component<any, state> {
   }
 
   handleBackPress(){
-    this.props.actions.backAction(this.props.step);
+    this.props.navigation.dispatch( NavigationActions.back( { key: null }) );
   }
 
   createRoom(){

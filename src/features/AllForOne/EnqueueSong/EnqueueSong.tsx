@@ -5,6 +5,8 @@ import AppLayout from '../../../components/layout';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as AfoActions from '../actions';
+import { BackHandler } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 
 class EnqueueSongScreen extends React.Component<any> {
 
@@ -15,11 +17,19 @@ class EnqueueSongScreen extends React.Component<any> {
     this.socket = socket;
   }
 
+  componentDidMount(){
+    BackHandler.addEventListener('hardwareBackPress', () => { this.handleBackPress(); return true; });
+  }
+
   render() {
     var content = (
         <SpotifySearch func={ (songID: string, songName: string) => { this.props.actions.enqueueSongAction(songID, songName, this.props.roomUuid, this.props.loggedAs); } }/>
     );
     return ( <AppLayout content={content}></AppLayout> )
+  }
+
+  handleBackPress(){
+    this.props.navigation.dispatch( NavigationActions.back( { key: null }) );
   }
 }
 
