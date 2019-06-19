@@ -1,7 +1,7 @@
-export const spotifyLogin = (spotifyUser: string, userAuth: any, Spotify: any) => (
+export const spotifyLogin = (spotifyUser: string, userAuth: any) => (
     {
       type: 'SPOTIFY_LOGIN',
-      payload: { user: spotifyUser, auth: userAuth, Spotify: Spotify }
+      payload: { user: spotifyUser, auth: userAuth }
     }
 );
 

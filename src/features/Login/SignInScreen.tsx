@@ -26,7 +26,7 @@ class SignInScreen extends React.Component<any, state> {
 
 	constructor(props: any) {
 		super(props);
-		this.state = { username: 'ECSTACYS', password: 'SYCATSCE', loading: false };
+		this.state = { username: 'ECSTACYS', password: 'ECSTACYS', loading: false };
 	}
 
 	render() {

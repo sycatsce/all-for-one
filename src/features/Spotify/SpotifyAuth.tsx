@@ -18,7 +18,7 @@ class SpotifyAuth extends React.Component<any> {
       if(loggedIn) {
         console.log('Déjà connecté');
         Spotify.getMe().then((user: any) => {
-          Spotify.getAuthAsync().then((auth: any) => {
+          Spotify.getSessionAsync().then((auth: any) => {
             this.props.actions.spotifyLogin(user, auth);
           });
         });
@@ -33,20 +33,18 @@ class SpotifyAuth extends React.Component<any> {
   }
 
   auth(){
-		Spotify.login().then((loggedIn: any) => {
-			if(loggedIn){
+    Spotify.login().then((loggedIn: any) => {
+      console.log('Etape 1 - Login', loggedIn);
+      if (loggedIn){
         Spotify.getMe().then((user: any) => {
-          Spotify.getAuthAsync().then((auth: any) => {
+          console.log('Etape 2 - User infos', user);
+          Spotify.getSessionAsync().then((auth: any) => {
+            console.log('Etape 3 - Auth infos', auth);
             this.props.actions.spotifyLogin(user, auth);
           });
         });
       }
-			else{
-				console.log('Pas pu se connecter');
-			}
-		}).catch((error: any) => {
-			console.log(error);
-    });
+    }).catch( (error: any) => { console.log(error); });
   }
 
   logout(){

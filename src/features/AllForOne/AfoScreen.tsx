@@ -58,7 +58,7 @@ class AfoScreen extends React.Component<any, state> {
             </Button>
 
             <Button
-                  onPress={ () => { this.props.navigation.push('Enqueue'); } }
+                  onPress={ () => {  } }
                   style={{backgroundColor: 'white'}}
                   textStyle={{fontSize: 18, color: 'black'}}
             >
