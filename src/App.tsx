@@ -8,9 +8,7 @@
 
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, ImageBackground} from 'react-native';
-import Button from 'apsl-react-native-button'
-import image from '../assets/img/Homepage.jpg';
-
+import Button from 'apsl-react-native-button';
 
 type Props = {};
 export default class App extends Component<Props> {

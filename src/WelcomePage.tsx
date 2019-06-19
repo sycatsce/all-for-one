@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, ImageBackground, TextInput} from 'react-native';
+import {StyleSheet, Text, View, ImageBackground, Image, TextInput} from 'react-native';
 import Button from 'apsl-react-native-button';
 
 type Props = {};
@@ -19,7 +19,7 @@ export default class Signup extends Component<Props> {
         <ImageBackground source={require('../assets/img/backgroundLayout.png')} style={{width: '100%', height: '100%'}}>
 
             <View style={styles.container}>
-                <Text style={styles.title}> SIGN UP </Text>
+                <Text style={styles.title}> Welcome </Text>
             </View>
 
             <View style={styles.container}>
@@ -28,21 +28,21 @@ export default class Signup extends Component<Props> {
 
 
       />
-                <Text style={styles.welcome}> Yourmail@gmail.com </Text>
+                <Text style={styles.welcome}> Recent Rooms </Text>
+                <Text style={styles.welcome}> No recent rooms, start your own room. </Text>
 
-                <Text style={styles.ligne}>_____________________________________________ </Text>
+                <Text style={styles.welcome}> Live Rooms </Text>
+                <Text style={styles.welcome}>No available rooms, start your own room. </Text>
 
-                <Text style={styles.welcome}> Your password </Text>
-                <Text style={styles.ligne}>_____________________________________________ </Text>
-
-                <Text style={styles.welcome}>Confirm Your password </Text>
-                <Text style={styles.ligne}>_____________________________________________ </Text>
+   <Image source={require('../assets/img/icon/favorite_24px_outlined.png')}/>
+   <Image source={require('../assets/img/icon/play_circle_filled_24px_outlined.png')}/>
+   <Image source={require('../assets/img/icon/search_24px_outlined.png')}/>
 
 
-                <Button style={styles.loginButton}>
-                    <Text style={styles.loginText}>Create</Text>
-                </Button>
-                <Text style={styles.instructions}> Don’t have an account ? </Text>
+
+
+
+
 
 
             </View>
