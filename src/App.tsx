@@ -10,12 +10,12 @@ export default class App extends Component<Props> {
 
             <ImageBackground source={require('../assets/img/homepageBackground.jpg')} style={{width: '100%', height: '100%', opacity: .9}}>
 
-            			<View style={{ padding: '5%', paddingTop: '50%' }} >
+            			<View style={{ padding: '19%', paddingTop: '54%', textAlign:'center' }} >
 
             				<View>
             					<Hoshi
             						label={'Username'}
-            						labelStyle={{ color: 'white', left:135}}
+            						labelStyle={{ color: 'white', textAlign:'center'}}
             						inputStyle={{ color: 'white' }}
                                    borderColor={'#FFFFF'}
             						style={{ width: '100%'}}
@@ -25,13 +25,15 @@ export default class App extends Component<Props> {
 
             					<Hoshi
             						label={'Password'}
-            						labelStyle={{ color: 'white', left:135}}
+            						labelStyle={{ color: 'white'}}
             						inputStyle={{ color: 'white' }}
                                    borderColor={'#FFFFF'}
                                    style={{ width: '100%'}}
             					/>
             				</View>
-            				<View>
+            				            			</View>
+
+            				<View style={{ bottom:60, left:14 }}>
             					<Button
             						title="Login"
             						style={styles.loginButton}
@@ -41,7 +43,6 @@ export default class App extends Component<Props> {
             					  <Text style={{top: 90, color: '#FFFFFF', left: 115}}> Don’t have an account ? </Text>
             				</View>
 
-            			</View>
             </ImageBackground>
         );
     }

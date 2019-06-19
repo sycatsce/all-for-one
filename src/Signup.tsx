@@ -10,21 +10,20 @@ export default class Signup extends Component<Props> {
 
         <ImageBackground source={require('../assets/img/backgroundLayout.png')} style={{width: '100%', height: '100%'}}>
 
-                     <Text style={{top: 80, color: '#FFFFFF', textAlign: 'center',     fontSize: 35,}}> Sign Up </Text>
+                     <Text style={{top: 80, color: '#FFFFFF', textAlign: 'center', fontSize: 35,}}> Sign Up </Text>
 
 
-                			<View style={{ padding: '5%', paddingTop: '35%' }} >
+                			<View style={{ padding: '15%', paddingTop: '35%' }} >
 
 
                 				<View>
                 					<Hoshi
-                                       label={'Email'}
+                                       label={'Username'}
                                        labelStyle={{ color: '#FFFFFF'}}
                                        inputStyle={{ color: '#FFFFFF', textAlign:'center' }}
                                        borderColor={'#FFFFF'}
 
                                     />
-
 
                 					<Hoshi
                                        label={'Password'}
@@ -40,14 +39,14 @@ export default class Signup extends Component<Props> {
                                        borderColor={'#FFFFFF'}
                                     />
                 				</View>
-                				<View>
+                				</View>
+            				<View style={{ bottom:60, left:14 }}>
                 					   <Button
                                           title="Signup"
                                           style={styles.SignupButton}
                                           textStyle={{fontSize: 14, color: '#FFFFFF'}}>
                                           Sign up
                                        </Button>
-                				</View>
 
                 			</View>
                 </ImageBackground>
