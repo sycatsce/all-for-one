@@ -58,7 +58,7 @@ class AfoScreen extends React.Component<any, state> {
             </Button>
 
             <Button
-                  onPress={ () => {  } }
+                  onPress={ () => { this.props.actions.disconnectionAction(this.props.loggedAs, this.props.roomName, this.props.roomUuid) } }
                   style={{backgroundColor: 'white'}}
                   textStyle={{fontSize: 18, color: 'black'}}
             >

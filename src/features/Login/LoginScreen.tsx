@@ -66,7 +66,7 @@ class LoginScreen extends React.Component<any, state> {
   checkLocalKey(){
     let _retrieveData = async () => {
       try {
-        const value = await AsyncStorage.getItem('USER');
+        const value = await AsyncStorage.getItem('AFO_USER');
         if (value !== null) {
           return value;
         }
@@ -82,11 +82,11 @@ class LoginScreen extends React.Component<any, state> {
 
   checkLogin(){
     this.checkLocalKey().then( (user_key: string|boolean) =>{
-      if (user_key !== false){ //Si une clé est dans le local storage, on se connecte direct
+      if (user_key !== false){
         this.props.actions.login(user_key);
         this.setState({ loading: false });
         this.props.navigation.navigate('MyAccount');
-      }else {
+      } else {
         this.setState({ loading: false });
       }
     });

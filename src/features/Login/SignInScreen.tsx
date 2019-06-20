@@ -76,10 +76,12 @@ class SignInScreen extends React.Component<any, state> {
 	userLogin() {
 		api.signIn(this.state.username, this.state.password).then((res: any) => {
 			if (res.login) {
-				AsyncStorage.setItem('USER', this.state.username).then(() => {
-					this.props.actions.login(this.state.username); //Pass user to the global store
-					this.props.navigation.navigate('MyAccount'); //Bye bye
-				}); //Stock username in localstorage, idk what to do
+				AsyncStorage.setItem('AFO_TOKEN', res.token).then(() => {
+					AsyncStorage.setItem('AFO_USER', this.state.username).then(() => {
+						this.props.actions.login(this.state.username); //Pass user to the global store
+						this.props.navigation.navigate('MyAccount'); //Bye bye
+					});
+				});
 			} else {
 				this.setState({ loading: false });
 			}

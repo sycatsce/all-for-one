@@ -42,6 +42,8 @@ const afoReducer = (state = INITIAL_STATE, action: {type: string, payload:any}) 
             return Object.assign( {}, state, { songsQueue: [ ...state.songsQueue, { songName: action.payload.songName, songID: action.payload.songID } ] } );
         case "UPDATE_QUEUE":
             return Object.assign( {}, state, { songsQueue: [ ...state.songsQueue, { songName: action.payload.songName, songID: action.payload.songID } ] } );
+        case "DISCONNECTION":
+            return INITIAL_STATE;
         default:
             return state
     }

@@ -125,7 +125,7 @@ class JoinRoom extends React.Component<any, state> {
           this.setState({dataSource: rooms});
           console.log(this.state.dataSource);
         }
-      }).catch(() => { console.log('rorr'); })
+      }).catch((error:any) => { console.log(error); })
     }
   }
 

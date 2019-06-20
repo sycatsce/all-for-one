@@ -17,6 +17,10 @@ export const socketMiddleware = () => {
                     ioClient.emit('enqueue-song', action.payload);
                     next(action);
                 }
+                if (action.type == "DISCONNECTION"){
+                    ioClient.emit('disconnection', action.payload);
+                    next(action);
+                }
             } else {
                 next(action);
             }
