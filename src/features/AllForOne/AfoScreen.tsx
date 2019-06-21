@@ -46,8 +46,19 @@ class AfoScreen extends React.Component<any, state> {
               <Button
                 onPress={ () => { this.startQueue(); }}
               >
-                Start Queue
-              </Button> : null }
+                Start
+              </Button> : null 
+            }
+            
+            <Button
+              onPress={ () => { this.pause(); }}
+            > Pause
+            </Button>
+
+            <Button
+              onPress={ () => { this.resume(); }}
+            > Resume
+            </Button>
 
             <Button
                   onPress={ () => { this.props.navigation.push('Enqueue'); } }
@@ -113,6 +124,14 @@ class AfoScreen extends React.Component<any, state> {
         }
       });
     }
+  }
+
+  pause(){
+    Spotify.setPlaying(false).then( () => { console.log('Paused'); });
+  }
+
+  resume(){
+    Spotify.setPlaying(true).then( () => { console.log('Resumed'); });
   }
 
 } 
