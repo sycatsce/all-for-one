@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, AsyncStorage } from 'react-native';
 import Button from 'apsl-react-native-button';
 import { Hoshi } from 'react-native-textinput-effects';
 import { connect } from 'react-redux';
@@ -31,15 +31,18 @@ class SignInScreen extends React.Component<any, state> {
 
 	render() {
 		let content = (
+        <ImageBackground source={require('../../../assets/img/homepageBackground.jpg')} style={{width: '100%', height: '100%', opacity: .9}}>
+
 			<View style={{ padding: '5%', paddingTop: '10%' }} >
 
-				<View>
+				<View style={{ padding: '19%', paddingTop: '45%' }}>
 					<Hoshi
 						label={'Username'}
 						onChangeText={(username: any) => this.setState({ username })}
-						labelStyle={{ color: '#000' }}
-						inputStyle={{ color: '#000' }}
+						labelStyle={{ color: 'white', textAlign:'center' }}
+						inputStyle={{ color: 'white' }}
 						style={{ width: '100%' }}
+						borderColor={'#FFFFF'}
 						value={this.state.username}
 					/>
 
@@ -48,24 +51,27 @@ class SignInScreen extends React.Component<any, state> {
 					<Hoshi
 						label={'Password'}
 						onChangeText={(password: any) => this.setState({ password })}
-						labelStyle={{ color: '#000' }}
-						inputStyle={{ color: '#000' }}
+						labelStyle={{ color: 'white', textAlign:'center' }}
+						inputStyle={{ color: 'white' }}
+                        borderColor={'#FFFFF'}
 						value={this.state.password}
 						secureTextEntry={true}
 					/>
 				</View>
-				<View style={{ position: 'relative', height: '70%' }}></View>
 				<View>
 					<Button
 						title="Sign In"
 						onPress={() => { this.setState({ loading: true }); this.userLogin() }}
-						style={{backgroundColor: 'white'}}
-            			textStyle={{fontSize: 18, color: '#003366'}}>
+						style={styles.loginButton}
+            			textStyle={{fontSize: 18, color: '#FFFFFF'}}>
 						Sign In
 					</Button>
+					<Text style={{top: 10, color: '#FFFFFF', left: 115}}> Don’t have an account ? </Text>
 				</View>
 
 			</View>
+        </ImageBackground>
+
 		);
 		return (
 			<AppLayout content={content}></AppLayout>
@@ -89,6 +95,22 @@ class SignInScreen extends React.Component<any, state> {
 		})
 	}
 }
+
+const styles = StyleSheet.create({
+    loginButton: {
+        backgroundColor: 'rgba(236, 120, 145, 0.7)',
+        width: 110,
+        height: 31,
+        left: 132,
+        top: 16,
+        paddingTop: 15,
+        paddingBottom: 15,
+        paddingRight: 20,
+        paddingLeft: 20,
+        borderRadius: 6,
+        borderColor: '#EC7891',
+    }
+});
 
 const mapStateToProps = (state: any) => {
 	return {

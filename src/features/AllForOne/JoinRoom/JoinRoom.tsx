@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, Button, View, BackHandler, TouchableHighlight, FlatList, TouchableOpacity } from 'react-native';
+import { Text, View, BackHandler, TouchableHighlight, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
+import Button from 'apsl-react-native-button';
 import Modal from "react-native-modal";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -46,15 +47,30 @@ class JoinRoom extends React.Component<any, state> {
 
   render() {
     let content = (
+                        <ImageBackground source={require('../../../../assets/img/backgroundLayout.png')} style={{width: '100%', height: '100%', opacity: .9}}>
+
       <View>
-        <Button title="ok" onPress={ () => this.searchRoom(this.state.needle) }></Button>
+
+
+
+
+<View>
         <SearchBar
           lightTheme={true}
-          containerStyle={{ backgroundColor: 'white' }}
-          inputContainerStyle={{ backgroundColor: 'black' }}
+          containerStyle={{ backgroundColor: 'white', width: '80%' }}
+          inputContainerStyle={{ backgroundColor: 'rgba(236, 201, 212, 0.558011)' }}
           onChangeText={ (needle: string) => { this.setState( {needle } ) }}
           value={this.state.needle}
         />
+        <Button
+                    onPress={ () => this.searchRoom(this.state.needle) }
+                      style={{backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)', float: 'right'}}
+                       textStyle={{fontSize: 18, color: 'white'}}
+                 >
+                  ok
+                </Button>
+
+                </View>
 
         <View>
           <FlatList
@@ -89,6 +105,8 @@ class JoinRoom extends React.Component<any, state> {
         </Modal>
 
       </View>
+                              </ImageBackground>
+
     );
     return (
       <AppLayout content={content}></AppLayout>

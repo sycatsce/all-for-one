@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, ImageBackground } from 'react-native';
 import Button from 'apsl-react-native-button';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -28,51 +28,67 @@ class AfoScreen extends React.Component<any, state> {
 
   render() {
     var content;
-    if (this.props.spotifyLogged == true){
       if(this.props.inARoom == true){
         content = (
-          <View>
-            <Text> {this.props.roomName} </Text>
-            <Text> {this.props.roomDescription} </Text>
-            <Text> {this.props.nbParticipants} / {this.props.limit} </Text>
+                <ImageBackground source={require('../../../assets/img/backgroundLayout.png')} style={{width: '100%', height: '100%', opacity: .9}}>
+
+                <View style={{ borderRadius: 10, height: '40%', padding:'5%'}}>
+
+
+                <View style={{  height: '50%', color: 'white'}}>
+            <Text style={{ color: 'white'}}> {this.props.roomName} </Text>
+            <Text style={{ color: 'white'}}> {this.props.roomDescription} </Text>
+            <Text style={{ color: 'white'}}> {this.props.nbParticipants} / {this.props.limit} </Text>
             { this.props.songsQueue.length == 0 ?
-              <Text> No Songs in the queue </Text>
+              <Text style={{  color: 'white'}}> No Songs in the queue </Text>
             : this.props.songsQueue.map( (value: any, key: any) => {
-                return ( <Text> {key + 1 + ". " + value.songName} </Text> );
+                return ( <Text style={{ color: 'white'}}> {key + 1 + ". " + value.songName} </Text> );
               })
             }
+
+                </View>
 
             { this.props.songsQueue.length > 0 ? 
               <Button
                 onPress={ () => { this.startQueue(); }}
+
+                style={{backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)', }}
+                textStyle={{fontSize: 18, color: 'white',         borderColor: 'rgba(236, 201, 212, 0.7)'}}
+
               >
                 Start Queue
               </Button> : null }
 
             <Button
                   onPress={ () => { this.props.navigation.push('Enqueue'); } }
-                  style={{backgroundColor: 'white'}}
-                  textStyle={{fontSize: 18, color: 'black'}}
+                          style={{backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)', }}
+                                  textStyle={{fontSize: 18, color: 'white', borderColor: 'rgba(236, 201, 212, 0.7)'}}
             >
               Enqueue a song
             </Button>
 
             <Button
                   onPress={ () => {  } }
-                  style={{backgroundColor: 'white'}}
-                  textStyle={{fontSize: 18, color: 'black'}}
+                          style={{backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)'}}
+                                  textStyle={{fontSize: 18, color: 'white', borderColor: 'rgba(236, 201, 212, 0.7)'}}
             >
               Leave Room
             </Button>
           </View>
+                  </ImageBackground>
+
         );
       } else {
           content = (
+                          <ImageBackground source={require('../../../assets/img/backgroundLayout.png')} style={{width: '100%', height: '100%', opacity: .9}}>
+
             <View>
-              <View style={{ borderRadius: 10, height: '30%', padding:'5%'}}>
+
+              <View style={{ borderRadius: 10, height: '30%', padding:'5%', top: '120%'}}>
+
                 <Button
                   onPress={ () => { this.props.navigation.push('Create') } }
-                  style={{backgroundColor: 'black'}}
+                  style={{backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)'}}
                   textStyle={{fontSize: 18, color: 'white'}}
                 >
                   Créer une salle
@@ -80,23 +96,17 @@ class AfoScreen extends React.Component<any, state> {
                 <View style={{height: 5}}/>
                 <Button
                   onPress={ () => { this.props.navigation.push('Join'); } }
-                  style={{backgroundColor: 'black'}}
+                  style={{backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)'}}
                   textStyle={{fontSize: 18, color: 'white'}}
                 >
                   Rejoindre une salle
                 </Button>
               </View>
             </View>
+                              </ImageBackground>
+
           );
       }
-    } else {
-        content =  (
-        <View>
-          <Text> Hi {this.props.loggedAs} </Text>
-          <Text> Link your spotify account and start using All for One </Text>
-        </View>
-      );
-    }
     return ( <AppLayout content={content}></AppLayout> )
   }
 

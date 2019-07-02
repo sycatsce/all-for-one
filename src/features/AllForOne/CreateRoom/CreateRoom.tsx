@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, View, BackHandler, Picker } from 'react-native';
+import { Text, View, ImageBackground, BackHandler, Picker } from 'react-native';
 import Button from 'apsl-react-native-button';
-import { Kaede } from 'react-native-textinput-effects';
+import { Hoshi } from 'react-native-textinput-effects';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as AfoActions from '../actions';
@@ -24,28 +24,43 @@ class CreateRoom extends React.Component<any, state> {
 
   render() {
     let content = (
-      <View>
-        <Text> Create a Room </Text>
+                    <ImageBackground source={require('../../../../assets/img/backgroundLayout.png')} style={{width: '100%', height: '100%', opacity: .9}}>
 
-        <Kaede
+      <View style={{ padding: '5%', paddingTop: '10%' }}>
+        <Text style={{ fontSize: 21, color : 'white', textAlign: 'center', bottom: '10%' }}> Create a Room </Text>
+
+        <Hoshi
           value={this.state.roomName}
           onChangeText={(roomName: any) => this.setState({ roomName })}
           label={'Room Name'}
           inputPadding={16}
+
+
+          	labelStyle={{ color: '#FFFFFF' }}
+          						inputStyle={{ color: '#FFFFFF', textAlign:'center' }}
+          						style={{ width: '100%' }}
+          						borderColor={'#FFFFF'}
         />
 
-        <Kaede
+        <Hoshi
           value={this.state.description}
           onChangeText={(description: any) => this.setState({ description })}
           label={'Room Description'}
           inputPadding={16}
+
+          	labelStyle={{ color: '#FFFFFF' }}
+          						inputStyle={{ color: '#FFFFFF', textAlign:'center' }}
+          						style={{ width: '100%' }}
+          						borderColor={'#FFFFF'}
         />
 
         <View style={{display: 'flex'}}>
-          <Text> Room limit </Text>
+          <Text
+            style={{ color: 'white', width: '100%' }}
+          > Room limit </Text>
           <Picker
             selectedValue={this.state.limit.toString()}
-            style={{height: 50, width: 100}}
+            style={{height: 50, width: 100, color: 'white'}}
             onValueChange={ (itemValue, itemIndex) => this.setState({ limit: parseInt(itemValue) }) }
           >
             <Picker.Item label="1" value="1" />
@@ -58,16 +73,18 @@ class CreateRoom extends React.Component<any, state> {
           </Picker>    
         </View>
 
-				<View>
+				<View style={{width: '30%', marginLeft: '36%'}}>
 					<Button
 						onPress={() => { this.createRoom(); }}
-						style={{backgroundColor: 'white'}}
-            textStyle={{fontSize: 18, color: '#003366'}}
+						style={{backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)' }}
+                       textStyle={{fontSize: 18, color: 'white', borderColor: 'rgba(236, 201, 212, 0.7)'}}
           >
 						Create
 					</Button>
 				</View>
       </View>
+                        </ImageBackground>
+
     );
     return (
       <AppLayout content={content}></AppLayout>

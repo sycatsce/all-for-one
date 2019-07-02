@@ -58,10 +58,10 @@ class SpotifyAuth extends React.Component<any> {
       return (
         <Button
           onPress={ () => this.auth() }
-          style={{backgroundColor: 'black'}}
-          textStyle={{fontSize: 18, color: 'white'}}
+          style={{backgroundColor: 'rgba(189, 205, 241, 0.8)', borderColor:'rgba(189, 205, 241, 0.8)', width: '70%', left: '90%' }}
+          textStyle={{fontSize: 13, color: 'white'}}
         >
-          Link Spotify
+          Link my app to Spotify
         </Button>
       );
     } else {

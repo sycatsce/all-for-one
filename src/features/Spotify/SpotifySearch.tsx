@@ -38,8 +38,8 @@ export default class SpotifySearch extends React.Component<any, state>{
             <View>
                 <SearchBar
                     lightTheme={true}
-                    containerStyle={{ backgroundColor: 'white' }}
-                    inputContainerStyle={{ backgroundColor: 'black' }}
+                    containerStyle={{ backgroundColor: 'white', borderRadius: 6 }}
+                    inputContainerStyle={{ backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderRadius: 6 }}
                     onChangeText={ (searchInput: string) => { this.searchSong(searchInput); }}
                     value={this.state.searchInput}
                 />

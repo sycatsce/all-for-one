@@ -5,7 +5,7 @@ import AppLayout from '../../../components/layout';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as AfoActions from '../actions';
-import { BackHandler } from 'react-native';
+import { BackHandler, ImageBackground } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 
 class EnqueueSongScreen extends React.Component<any> {
@@ -23,7 +23,15 @@ class EnqueueSongScreen extends React.Component<any> {
 
   render() {
     var content = (
-        <SpotifySearch func={ (songID: string, songName: string) => { this.props.actions.enqueueSongAction(songID, songName, this.props.roomUuid, this.props.loggedAs); } }/>
+                        <ImageBackground source={require('../../../../assets/img/backgroundLayout.png')} style={{width: '100%', height: '100%', opacity: .9}}>
+
+        <SpotifySearch
+
+
+         func={ (songID: string, songName: string) => { this.props.actions.enqueueSongAction(songID, songName, this.props.roomUuid, this.props.loggedAs); } }/>
+
+                                </ImageBackground>
+
     );
     return ( <AppLayout content={content}></AppLayout> )
   }
