@@ -56,8 +56,19 @@ class AfoScreen extends React.Component<any, state> {
                 textStyle={{fontSize: 18, color: 'white',         borderColor: 'rgba(236, 201, 212, 0.7)'}}
 
               >
-                Start Queue
-              </Button> : null }
+                Start
+              </Button> : null
+            }
+
+            <Button
+              onPress={ () => { this.pause(); }}
+            > Pause
+            </Button>
+
+            <Button
+              onPress={ () => { this.resume(); }}
+            > Resume
+            </Button>
 
             <Button
                   onPress={ () => { this.props.navigation.push('Enqueue'); } }
@@ -68,9 +79,9 @@ class AfoScreen extends React.Component<any, state> {
             </Button>
 
             <Button
-                  onPress={ () => {  } }
-                          style={{backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)'}}
-                                  textStyle={{fontSize: 18, color: 'white', borderColor: 'rgba(236, 201, 212, 0.7)'}}
+                  onPress={ () => { this.props.actions.disconnectionAction(this.props.loggedAs, this.props.roomName, this.props.roomUuid) } }
+                  style={{backgroundColor: 'white'}}
+                  textStyle={{fontSize: 18, color: 'black'}}
             >
               Leave Room
             </Button>
@@ -125,7 +136,15 @@ class AfoScreen extends React.Component<any, state> {
     }
   }
 
-} 
+  pause(){
+    Spotify.setPlaying(false).then( () => { console.log('Paused'); });
+  }
+
+  resume(){
+    Spotify.setPlaying(true).then( () => { console.log('Resumed'); });
+  }
+
+}
 
 const mapStateToProps = (state:any) => {
   return {

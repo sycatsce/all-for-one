@@ -143,19 +143,14 @@ class JoinRoom extends React.Component<any, state> {
           this.setState({dataSource: rooms});
           console.log(this.state.dataSource);
         }
-      }).catch(() => { console.log('rorr'); })
+      }).catch((error:any) => { console.log(error); })
     }
   }
 
   joinRoom(){
-    this.props.actions.joinRoomAction(
-      this.props.loggedAs,
-      this.state.roomInfos.roomName,
-      this.state.roomInfos.roomDescription,
-      this.state.roomInfos.limit,
-      this.state.roomInfos.host,
-      this.state.roomInfos.uuid
-    );
+    var { roomName, roomDescription, limit, host, uuid } = this.state.roomInfos;
+    var { loggedAs } = this.props;
+    this.props.actions.joinRoomAction( loggedAs, roomName, roomDescription, limit, host, uuid );
     this.props.navigation.dispatch( NavigationActions.back( { key: null }) );
   }
 }

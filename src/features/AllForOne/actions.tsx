@@ -59,3 +59,16 @@ export const updateSongQueueAction = ( songID: string, songName: string ) => (
         }
     }
 )
+
+export const disconnectionAction = ( user: string, roomName: string, uuid: string) => (
+    {
+        type: 'DISCONNECTION',
+        websocket: true,
+        payload: {
+            type: 'self_disconnection',
+            user: user,
+            roomName: roomName,
+            uuid: uuid
+        }
+    }
+)
