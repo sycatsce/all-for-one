@@ -12,17 +12,17 @@ type state = { username: string, password: string, loading: boolean };
 
 class SignInScreen extends React.Component<any, state> {
 
-  static navigationOptions = {
-    title: 'Home',
-    headerStyle: {
-      backgroundColor: '#7c1111',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
+	static navigationOptions = {
+		title: 'Home',
+		headerStyle: {
+			backgroundColor: '#7c1111',
+		},
+		headerTintColor: '#fff',
+		headerTitleStyle: {
 			fontWeight: 'bold',
 			fontFamily: 'GeosansLight'
-    },
-  };
+		},
+	};
 
 	constructor(props: any) {
 		super(props);
@@ -31,46 +31,46 @@ class SignInScreen extends React.Component<any, state> {
 
 	render() {
 		let content = (
-        <ImageBackground source={require('../../../assets/img/homepageBackground.jpg')} style={{width: '100%', height: '100%', opacity: .9}}>
+			<ImageBackground source={require('../../../assets/img/homepageBackground.jpg')} style={{ width: '100%', height: '100%', opacity: .9 }}>
 
-			<View style={{ padding: '5%', paddingTop: '10%' }} >
+				<View style={{ padding: '5%', paddingTop: '10%' }} >
 
-				<View style={{ padding: '19%', paddingTop: '45%' }}>
-					<Hoshi
-						label={'Username'}
-						onChangeText={(username: any) => this.setState({ username })}
-						labelStyle={{ color: 'white', textAlign:'center' }}
-						inputStyle={{ color: 'white' }}
-						style={{ width: '100%' }}
-						borderColor={'#FFFFF'}
-						value={this.state.username}
-					/>
+					<View style={{ padding: '19%', paddingTop: '45%' }}>
+						<Hoshi
+							label={'Username'}
+							onChangeText={(username: any) => this.setState({ username })}
+							labelStyle={{ color: 'white', textAlign: 'center' }}
+							inputStyle={{ color: 'white' }}
+							style={{ width: '100%' }}
+							borderColor={'#FFFFF'}
+							value={this.state.username}
+						/>
 
-					<View style={{ height: '5%' }}></View>
+						<View style={{ height: '5%' }}></View>
 
-					<Hoshi
-						label={'Password'}
-						onChangeText={(password: any) => this.setState({ password })}
-						labelStyle={{ color: 'white', textAlign:'center' }}
-						inputStyle={{ color: 'white' }}
-                        borderColor={'#FFFFF'}
-						value={this.state.password}
-						secureTextEntry={true}
-					/>
-				</View>
-				<View>
-					<Button
-						title="Sign In"
-						onPress={() => { this.setState({ loading: true }); this.userLogin() }}
-						style={styles.loginButton}
-            			textStyle={{fontSize: 18, color: '#FFFFFF'}}>
-						Sign In
+						<Hoshi
+							label={'Password'}
+							onChangeText={(password: any) => this.setState({ password })}
+							labelStyle={{ color: 'white', textAlign: 'center' }}
+							inputStyle={{ color: 'white' }}
+							borderColor={'#FFFFF'}
+							value={this.state.password}
+							secureTextEntry={true}
+						/>
+					</View>
+					<View>
+						<Button
+							title="Sign In"
+							onPress={() => { this.setState({ loading: true }); this.userLogin() }}
+							style={styles.loginButton}
+							textStyle={{ fontSize: 18, color: '#FFFFFF' }}>
+							Sign In
 					</Button>
-					<Text style={{top: 10, color: '#FFFFFF', left: 115}}> Don’t have an account ? </Text>
-				</View>
+						<Text style={{ top: 10, color: '#FFFFFF', left: 115 }}> Don’t have an account ? </Text>
+					</View>
 
-			</View>
-        </ImageBackground>
+				</View>
+			</ImageBackground>
 
 		);
 		return (
@@ -99,19 +99,19 @@ class SignInScreen extends React.Component<any, state> {
 }
 
 const styles = StyleSheet.create({
-    loginButton: {
-        backgroundColor: 'rgba(236, 120, 145, 0.7)',
-        width: 110,
-        height: 31,
-        left: 132,
-        top: 16,
-        paddingTop: 15,
-        paddingBottom: 15,
-        paddingRight: 20,
-        paddingLeft: 20,
-        borderRadius: 6,
-        borderColor: '#EC7891',
-    }
+	loginButton: {
+		backgroundColor: 'rgba(236, 120, 145, 0.7)',
+		width: 110,
+		height: 31,
+		left: 132,
+		top: 16,
+		paddingTop: 15,
+		paddingBottom: 15,
+		paddingRight: 20,
+		paddingLeft: 20,
+		borderRadius: 6,
+		borderColor: '#EC7891',
+	}
 });
 
 const mapStateToProps = (state: any) => {

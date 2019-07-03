@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text} from 'react-native';
+import { View, Text } from 'react-native';
 import Button from 'apsl-react-native-button';
 import Spotify from 'rn-spotify-sdk';
 import { bindActionCreators } from 'redux';
@@ -9,13 +9,13 @@ import { spotifyAuthInfos } from '../../api/constants';
 
 class SpotifyAuth extends React.Component<any> {
 
-  componentDidMount(){
+  componentDidMount() {
     this.initSpotify();
   }
 
-  initSpotify(){
+  initSpotify() {
     Spotify.initialize(spotifyAuthInfos).then((loggedIn: any) => {
-      if(loggedIn) {
+      if (loggedIn) {
         console.log('Déjà connecté');
         Spotify.getMe().then((user: any) => {
           Spotify.getSessionAsync().then((auth: any) => {
@@ -32,10 +32,10 @@ class SpotifyAuth extends React.Component<any> {
     });
   }
 
-  auth(){
+  auth() {
     Spotify.login().then((loggedIn: any) => {
       console.log('Etape 1 - Login', loggedIn);
-      if (loggedIn){
+      if (loggedIn) {
         Spotify.getMe().then((user: any) => {
           console.log('Etape 2 - User infos', user);
           Spotify.getSessionAsync().then((auth: any) => {
@@ -44,22 +44,22 @@ class SpotifyAuth extends React.Component<any> {
           });
         });
       }
-    }).catch( (error: any) => { console.log(error); });
+    }).catch((error: any) => { console.log(error); });
   }
 
-  logout(){
+  logout() {
     Spotify.logout().then(() => {
       this.props.actions.spotifyLogout();
     });
   }
 
   render() {
-    if (this.props.spotifyLogged == false){
+    if (this.props.spotifyLogged == false) {
       return (
         <Button
-          onPress={ () => this.auth() }
-          style={{backgroundColor: 'rgba(189, 205, 241, 0.8)', borderColor:'rgba(189, 205, 241, 0.8)', width: '70%', left: '90%' }}
-          textStyle={{fontSize: 13, color: 'white'}}
+          onPress={() => this.auth()}
+          style={{ backgroundColor: 'rgba(189, 205, 241, 0.8)', borderColor: 'rgba(189, 205, 241, 0.8)', width: '70%', left: '90%' }}
+          textStyle={{ fontSize: 13, color: 'white' }}
         >
           Link my app to Spotify
         </Button>
@@ -67,13 +67,13 @@ class SpotifyAuth extends React.Component<any> {
     } else {
       return (
         <View>
-          <Text> Spotify account linked : { this.props.spotifyUser.display_name } </Text>
+          <Text> Spotify account linked : {this.props.spotifyUser.display_name} </Text>
           <Button
-            onPress={ () => this.logout() }
-            style={{backgroundColor: 'black'}}
-            textStyle={{fontSize: 18, color: 'white'}}
+            onPress={() => this.logout()}
+            style={{ backgroundColor: 'black' }}
+            textStyle={{ fontSize: 18, color: 'white' }}
           >
-          Unlink
+            Unlink
         </Button>
         </View>
       )
@@ -81,15 +81,15 @@ class SpotifyAuth extends React.Component<any> {
   }
 }
 
-const mapStateToProps = (state:any) => {
+const mapStateToProps = (state: any) => {
   return {
     spotifyLogged: state.spotifyReducer.spotifyLogged,
     spotifyUser: state.spotifyReducer.spotifyUser
   }
 }
 
-const mapDispatchToProps = (dispatch:any) => ({
-  actions : bindActionCreators(SpotifyActions, dispatch),
+const mapDispatchToProps = (dispatch: any) => ({
+  actions: bindActionCreators(SpotifyActions, dispatch),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SpotifyAuth);

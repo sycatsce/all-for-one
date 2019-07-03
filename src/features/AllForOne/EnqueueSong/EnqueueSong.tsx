@@ -10,34 +10,29 @@ import { NavigationActions } from 'react-navigation';
 
 class EnqueueSongScreen extends React.Component<any> {
 
-  socket : any;
-  
+  socket: any;
+
   constructor(props: any) {
     super(props);
     this.socket = socket;
   }
 
-  componentDidMount(){
+  componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', () => { this.handleBackPress(); return true; });
   }
 
   render() {
     var content = (
-                        <ImageBackground source={require('../../../../assets/img/backgroundLayout.png')} style={{width: '100%', height: '100%', opacity: .9}}>
-
+      <ImageBackground source={require('../../../../assets/img/backgroundLayout.png')} style={{ width: '100%', height: '100%', opacity: .9 }}>
         <SpotifySearch
-
-
-         func={ (songID: string, songName: string) => { this.props.actions.enqueueSongAction(songID, songName, this.props.roomUuid, this.props.loggedAs); } }/>
-
-                                </ImageBackground>
-
+          func={(songID: string, songName: string) => { this.props.actions.enqueueSongAction(songID, songName, this.props.roomUuid, this.props.loggedAs); }} />
+      </ImageBackground>
     );
-    return ( <AppLayout content={content}></AppLayout> )
+    return (<AppLayout content={content}></AppLayout>)
   }
 
-  handleBackPress(){
-    this.props.navigation.dispatch( NavigationActions.back( { key: null }) );
+  handleBackPress() {
+    this.props.navigation.dispatch(NavigationActions.back({ key: null }));
   }
 }
 
@@ -50,7 +45,7 @@ const mapStateToProps = (state: any) => {
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-  actions : bindActionCreators(AfoActions, dispatch),
+  actions: bindActionCreators(AfoActions, dispatch),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EnqueueSongScreen);

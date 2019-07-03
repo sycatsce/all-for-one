@@ -14,8 +14,8 @@ import { socket } from '../../../api/socket';
 type state = {
   needle: string,
   dataSource: any,
-  isModalVisible: boolean, 
-  roomInfos: { 
+  isModalVisible: boolean,
+  roomInfos: {
     roomName: string,
     roomDescription: string,
     limit: number,
@@ -36,57 +36,50 @@ class JoinRoom extends React.Component<any, state> {
       needle: '',
       dataSource: [],
       isModalVisible: false,
-      roomInfos: { roomName: '', roomDescription: '', limit: 0, host: '', uuid: '', nbParticipants: 0}
+      roomInfos: { roomName: '', roomDescription: '', limit: 0, host: '', uuid: '', nbParticipants: 0 }
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', () => { this.handleBackPress(); return true; });
     this.socket.on('new-participant', (datas: any) => { this.props.actions.updateParticipantsAction(datas.nbParticipants, datas.user); });
   }
 
   render() {
     let content = (
-                        <ImageBackground source={require('../../../../assets/img/backgroundLayout.png')} style={{width: '100%', height: '100%', opacity: .9}}>
-
-      <View>
-
-
-
-
-<View>
-        <SearchBar
-          lightTheme={true}
-          containerStyle={{ backgroundColor: 'white', width: '80%' }}
-          inputContainerStyle={{ backgroundColor: 'rgba(236, 201, 212, 0.558011)' }}
-          onChangeText={ (needle: string) => { this.setState( {needle } ) }}
-          value={this.state.needle}
-        />
-        <Button
-                    onPress={ () => this.searchRoom(this.state.needle) }
-                      style={{backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)', float: 'right'}}
-                       textStyle={{fontSize: 18, color: 'white'}}
-                 >
-                  ok
-                </Button>
-
-                </View>
+      <ImageBackground source={require('../../../../assets/img/backgroundLayout.png')} style={{ width: '100%', height: '100%', opacity: .9 }}>
+        <View>
+          <SearchBar
+            lightTheme={true}
+            containerStyle={{ backgroundColor: 'white', width: '80%' }}
+            inputContainerStyle={{ backgroundColor: 'rgba(236, 201, 212, 0.558011)' }}
+            onChangeText={(needle: string) => { this.setState({ needle }) }}
+            value={this.state.needle}
+          />
+          <Button
+            onPress={() => this.searchRoom(this.state.needle)}
+            style={{ backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)', float: 'right' }}
+            textStyle={{ fontSize: 18, color: 'white' }}
+          >
+            ok
+        </Button>
+        </View>
 
         <View>
           <FlatList
             contentContainerStyle={{ flexGrow: 1 }}
             data={this.state.dataSource}
-            renderItem={ ({item}:any) =>
+            renderItem={({ item }: any) =>
               <TouchableHighlight
-                  onPress={ () => { this._toggleModal(item); }}
-                  style={{ height: 40}}
+                onPress={() => { this._toggleModal(item); }}
+                style={{ height: 40 }}
               >
                 <View>
-                    <Text>
-                        {item.host + " - " + item.roomName + " - " + item.roomDescription + " - " + item.nbParticipants + "/" + item.limit} 
-                    </Text>
+                  <Text>
+                    {item.host + " - " + item.roomName + " - " + item.roomDescription + " - " + item.nbParticipants + "/" + item.limit}
+                  </Text>
                 </View>
-              </TouchableHighlight> 
+              </TouchableHighlight>
             }
           />
         </View>
@@ -99,38 +92,36 @@ class JoinRoom extends React.Component<any, state> {
             <Text> Host : {this.state.roomInfos.host} </Text>
             <Text> </Text>
 
-            <Button title="Join" onPress={ () => { this.joinRoom(); } } />
-            <Button title="Cancel" onPress={ () => { this._toggleModal(); } } />
+            <Button title="Join" onPress={() => { this.joinRoom(); }} />
+            <Button title="Cancel" onPress={() => { this._toggleModal(); }} />
           </View>
         </Modal>
 
-      </View>
-                              </ImageBackground>
-
+      </ImageBackground>
     );
     return (
       <AppLayout content={content}></AppLayout>
     );
   }
 
-  _toggleModal = (item?: {roomName: string, roomDescription: string, limit: number, host: string, uuid: string, nbParticipants: number}) => {
-    if (item){
+  _toggleModal = (item?: { roomName: string, roomDescription: string, limit: number, host: string, uuid: string, nbParticipants: number }) => {
+    if (item) {
       this.setState({ roomInfos: item });
     }
     this.setState({ isModalVisible: !this.state.isModalVisible });
   }
 
-  handleBackPress(){
-    this.props.navigation.dispatch( NavigationActions.back( { key: null }) );
+  handleBackPress() {
+    this.props.navigation.dispatch(NavigationActions.back({ key: null }));
   }
 
-  searchRoom(needle: string){
-    if(needle){
-      this.setState({ needle }); 
-      api.searchRoom(this.state.needle).then((datas:any) => {
-        if(!datas.error){
+  searchRoom(needle: string) {
+    if (needle) {
+      this.setState({ needle });
+      api.searchRoom(this.state.needle).then((datas: any) => {
+        if (!datas.error) {
           var rooms: Array<Object> = [];
-          for( var uuid in datas ){
+          for (var uuid in datas) {
             rooms.push({
               roomName: datas[uuid].roomName,
               roomDescription: datas[uuid].roomDescription,
@@ -140,29 +131,29 @@ class JoinRoom extends React.Component<any, state> {
               nbParticipants: datas[uuid].nbParticipants
             })
           }
-          this.setState({dataSource: rooms});
+          this.setState({ dataSource: rooms });
           console.log(this.state.dataSource);
         }
-      }).catch((error:any) => { console.log(error); })
+      }).catch((error: any) => { console.log(error); })
     }
   }
 
-  joinRoom(){
+  joinRoom() {
     var { roomName, roomDescription, limit, host, uuid } = this.state.roomInfos;
     var { loggedAs } = this.props;
-    this.props.actions.joinRoomAction( loggedAs, roomName, roomDescription, limit, host, uuid );
-    this.props.navigation.dispatch( NavigationActions.back( { key: null }) );
+    this.props.actions.joinRoomAction(loggedAs, roomName, roomDescription, limit, host, uuid);
+    this.props.navigation.dispatch(NavigationActions.back({ key: null }));
   }
 }
 
-const mapStateToProps = (state:any) => {
+const mapStateToProps = (state: any) => {
   return {
     loggedAs: state.loginReducer.loggedAs,
   }
 }
 
-const mapDispatchToProps = (dispatch:any) => ({
-  actions : bindActionCreators(AfoActions, dispatch),
+const mapDispatchToProps = (dispatch: any) => ({
+  actions: bindActionCreators(AfoActions, dispatch),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(JoinRoom);  

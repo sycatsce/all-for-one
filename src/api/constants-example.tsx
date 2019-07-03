@@ -10,4 +10,6 @@ export const spotifyAuthInfos = {
     "sessionUserDefaultsKey":"SpotifySession",
     "redirectURL":"REDIRECT-URL",
     "scopes":["user-read-private", "playlist-read", "playlist-read-private", "streaming"],
+    "tokenSwapURL": baseURI + "/swap",
+    "tokenRefreshURL": baseURI + "/refresh",
 };
