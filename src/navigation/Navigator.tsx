@@ -43,9 +43,30 @@ const LoginStack = createStackNavigator({
 
 const AfoStack = createStackNavigator({
   Main: AfoScreen,
-  Create: CreateRoom,
-  Join: JoinRoom,
-  Enqueue: EnqueueSongScreen,
+  Create: {
+    screen: CreateRoom,
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#8DAAE6',
+      },
+    }
+  },
+  Join: {
+    screen: JoinRoom,
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#8DAAE6',
+      },
+    }
+  },
+  Enqueue: {
+    screen: EnqueueSongScreen,
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#8DAAE6',
+      },
+    }
+  },
 
 });
 
@@ -56,9 +77,9 @@ const BottomTabNavigator = createBottomTabNavigator({
       tabBarIcon: ({}) => (
         <Icon name="user" size={20} color="#000" />
       )
-    }
+    },
   },
-  AllForOne: {
+  Vibes: {
     screen: AfoStack,
     navigationOptions: {
       tabBarIcon: ({}) => (
@@ -68,8 +89,8 @@ const BottomTabNavigator = createBottomTabNavigator({
   }
 }, {
   tabBarOptions:{
-    activeTintColor: '#000',
-    style: { backgroundColor: '#fff' }
+    activeTintColor: '#fff',
+    style: { backgroundColor: '#ffcccc' }
   }
 });
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, AsyncStorage, ImageBackground, StyleSheet } from 'react-native';
+import { Text, View, AsyncStorage, ImageBackground, StyleSheet, Image } from 'react-native';
 import Button from 'apsl-react-native-button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -30,17 +30,13 @@ class LoginScreen extends React.Component<any, state> {
     let content = (
       <ImageBackground source={require('../../../assets/img/homepageBackground.jpg')} style={{ width: '100%', height: '100%', opacity: .8 }}>
 
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ alignItems: 'center', flex: 1, flexDirection: 'column' }}>
 
-          <View style={{ height: '20%' }} />
+          <Image resizeMode='contain' style={{ width: '90%', height: '21%' }} source={require('../../../assets/img/logoHome.png')} />
 
-          <View style={{}}>
-            <Text style={{ fontFamily: 'GeosansLight', textAlign: 'center', fontSize: 60, color: 'white' }}> Vibes </Text>
-          </View>
+          <View style={{ height: '0%' }} />
 
-          <View style={{ height: '50%' }} />
-
-          <View style={{ width: '90%' }}>
+          <View style={{ width: '90%', position: 'absolute', bottom: 0 }}>
             <Button
               onPress={() => this.props.navigation.push('SignIn')}
               style={styles.homeButtons}

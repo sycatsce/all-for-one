@@ -11,12 +11,7 @@ class MyAccountScreen extends React.Component<any> {
 
         <View style={{ height: '30%', padding: '5%' }}>
           <Text style={{ fontSize: 21, color: 'white', textAlign: 'center' }}> My Account </Text>
-
-          <View style={{ height: '50%', top: '20%' }}>
-            <Text style={{ color: 'white' }}> Spotify : { this.props.spotifyUser } </Text>
-            <Text style={{ color: 'white' }}> mail spotify </Text>
-          </View>
-
+          
           <View style={{ height: '50%', top: '20%' }}>
             <SpotifyAuth loggedIn={() => this.props.navigation.navigate('AllForOne')} />
           </View>

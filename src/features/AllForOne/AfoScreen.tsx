@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ImageBackground } from 'react-native';
+import { Text, View, ImageBackground, TouchableOpacity, Image } from 'react-native';
 import Button from 'apsl-react-native-button';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -8,7 +8,7 @@ import AppLayout from '../../components/layout';
 import { socket } from '../../api/socket';
 import Spotify from 'rn-spotify-sdk';
 
-type state = { musicPos: number }
+type state = { musicPos: number, playing: boolean, paused: boolean }
 
 class AfoScreen extends React.Component<any, state> {
 
@@ -18,7 +18,7 @@ class AfoScreen extends React.Component<any, state> {
   constructor(props: any) {
     super(props);
     this.socket = socket;
-    this.state = { musicPos: 0 }
+    this.state = { musicPos: 0, playing: false, paused: false }
   }
 
   componentDidMount() {
@@ -28,84 +28,112 @@ class AfoScreen extends React.Component<any, state> {
 
   render() {
     var content;
-    if (this.props.inARoom == true) {
-      content = (
-        <ImageBackground source={require('../../../assets/img/backgroundLayout.png')} style={{ width: '100%', height: '100%', opacity: .9 }}>
-          <View style={{ borderRadius: 10, height: '40%', padding: '5%' }}>
+    if (this.props.spotifyLogged == true){
+      if (this.props.inARoom == true) {
+        content = (
+          <ImageBackground source={require('../../../assets/img/backgroundLayout.png')} style={{ width: '100%', height: '100%', opacity: .9 }}>
+            <View style={{ borderRadius: 10, height: '40%', padding: '5%' }}>
 
-            <View style={{ height: '50%' }}>
-              <Text style={{ color: 'white' }}> {this.props.roomName} </Text>
-              <Text style={{ color: 'white' }}> {this.props.roomDescription} </Text>
-              <Text style={{ color: 'white' }}> {this.props.nbParticipants} / {this.props.limit} </Text>
-              {this.props.songsQueue.length == 0 ?
-                <Text style={{ color: 'white' }}> No Songs in the queue </Text>
-                : this.props.songsQueue.map((value: any, key: any) => {
-                  return (<Text style={{ color: 'white' }}> {key + 1 + ". " + value.songName} </Text>);
-                })
+              <View style={{ height: '50%' }}>
+                <Text style={{ color: 'white' }}> {this.props.roomName} </Text>
+                <Text style={{ color: 'white' }}> {this.props.roomDescription} </Text>
+                <Text style={{ color: 'white' }}> {this.props.nbParticipants} / {this.props.limit} </Text>
+                {this.props.songsQueue.length == 0 ?
+                  <Text style={{ color: 'white' }}> No Songs in the queue </Text>
+                  : this.props.songsQueue.map((value: any, key: any) => {
+                    return (<Text style={{ color: 'white' }}> {key + 1 + ". " + value.songName} </Text>);
+                  })
+                }
+              </View>
+
+              {
+                this.props.songsQueue.length > 0 && this.state.playing !== true && this.state.paused !== true ?
+                <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: '10%', marginBottom: '10%' }}>
+                  <TouchableOpacity onPress={ () => { this.startQueue(); } }>
+                  <Image
+                    source={require('../../../assets/img/play.png')}
+                    style={{ width: 50, height: 50 }}
+                  />
+                  </TouchableOpacity>
+                </View> : null
               }
-            </View>
 
-            {this.props.songsQueue.length > 0 ?
+
+              { 
+                this.state.playing == true ?
+                <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: '10%', marginBottom: '10%' }}>
+                  <TouchableOpacity onPress={ () => { this.pause(); } }>
+                    <Image
+                      source={require('../../../assets/img/pause.png')}
+                      style={{ width: 50, height: 50 }}
+                    />
+                  </TouchableOpacity>
+                </View> : null 
+              }
+
+              { 
+                this.state.paused == true ?
+                <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: '10%', marginBottom: '10%' }}>
+                  <TouchableOpacity onPress={ () => { this.resume(); } }>
+                    <Image
+                      source={require('../../../assets/img/play.png')}
+                      style={{ width: 50, height: 50 }}
+                    />
+                  </TouchableOpacity>
+                </View> : null 
+              }
+
               <Button
-                onPress={() => { this.startQueue(); }}
-                style={{ backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)', }}
+                onPress={() => { this.props.navigation.push('Enqueue'); }}
+                style={{ backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)' }}
                 textStyle={{ fontSize: 18, color: 'white', borderColor: 'rgba(236, 201, 212, 0.7)' }}
               >
-                Start
-              </Button> : null
-            }
+                Enqueue a song
+              </Button>
 
-            <Button
-              onPress={() => { this.pause(); }}
-            > Pause
-            </Button>
+              <Button
+                onPress={() => { this.props.actions.disconnectionAction(this.props.loggedAs, this.props.roomName, this.props.roomUuid) }}
+                style={{ backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)' }}
+                textStyle={{ fontSize: 18, color: 'black' }}
+              >
+                Leave Room
+              </Button>
+            </View>
+          </ImageBackground>
+        );
+      } else {
+        content = (
+          <ImageBackground source={require('../../../assets/img/backgroundLayout.png')} style={{ width: '100%', height: '100%', opacity: .9 }}>
+            <View>
 
-            <Button
-              onPress={() => { this.resume(); }}
-            > Resume
-            </Button>
+              <View style={{ borderRadius: 10, height: '30%', padding: '5%', top: '120%' }}>
 
-            <Button
-              onPress={() => { this.props.navigation.push('Enqueue'); }}
-              style={{ backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)', }}
-              textStyle={{ fontSize: 18, color: 'white', borderColor: 'rgba(236, 201, 212, 0.7)' }}
-            >
-              Enqueue a song
-            </Button>
-
-            <Button
-              onPress={() => { this.props.actions.disconnectionAction(this.props.loggedAs, this.props.roomName, this.props.roomUuid) }}
-              style={{ backgroundColor: 'white' }}
-              textStyle={{ fontSize: 18, color: 'black' }}
-            >
-              Leave Room
-            </Button>
-          </View>
-        </ImageBackground>
-      );
+                <Button
+                  onPress={() => { this.props.navigation.push('Create') }}
+                  style={{ backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)' }}
+                  textStyle={{ fontSize: 18, color: 'white' }}
+                >
+                  Créer une salle
+                  </Button>
+                <View style={{ height: 5 }} />
+                <Button
+                  onPress={() => { this.props.navigation.push('Join'); }}
+                  style={{ backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)' }}
+                  textStyle={{ fontSize: 18, color: 'white' }}
+                >
+                  Rejoindre une salle
+                  </Button>
+              </View>
+            </View>
+          </ImageBackground>
+        );
+      }
     } else {
       content = (
         <ImageBackground source={require('../../../assets/img/backgroundLayout.png')} style={{ width: '100%', height: '100%', opacity: .9 }}>
-          <View>
-
-            <View style={{ borderRadius: 10, height: '30%', padding: '5%', top: '120%' }}>
-
-              <Button
-                onPress={() => { this.props.navigation.push('Create') }}
-                style={{ backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)' }}
-                textStyle={{ fontSize: 18, color: 'white' }}
-              >
-                Créer une salle
-                </Button>
-              <View style={{ height: 5 }} />
-              <Button
-                onPress={() => { this.props.navigation.push('Join'); }}
-                style={{ backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)' }}
-                textStyle={{ fontSize: 18, color: 'white' }}
-              >
-                Rejoindre une salle
-                </Button>
-            </View>
+          <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
+            <Text> Hello { this.props.loggedAs } </Text>
+            <Text> Link your Spotify account to start using Vibes </Text>
           </View>
         </ImageBackground>
       );
@@ -117,6 +145,7 @@ class AfoScreen extends React.Component<any, state> {
     if (this.props.songsQueue[this.state.musicPos]) {
       Spotify.playURI('spotify:track:' + this.props.songsQueue[this.state.musicPos].songID, 0, 0).then((error: any) => {
         if (!error) {
+          this.setState({ playing: true });
           Spotify.once('trackChange', (event: any) => {
             Spotify.once('trackChange', (event: any) => {
               this.setState({ musicPos: this.state.musicPos + 1 });
@@ -129,11 +158,16 @@ class AfoScreen extends React.Component<any, state> {
   }
 
   pause() {
-    Spotify.setPlaying(false).then(() => { console.log('Paused'); });
+    Spotify.setPlaying(false).then(() => {
+      this.setState({ playing: false, paused: true })
+      console.log('Paused'); 
+    });
   }
 
   resume() {
-    Spotify.setPlaying(true).then(() => { console.log('Resumed'); });
+    Spotify.setPlaying(true).then(() => {
+      this.setState({ playing: true, paused: false });
+      console.log('Resumed'); });
   }
 
 }

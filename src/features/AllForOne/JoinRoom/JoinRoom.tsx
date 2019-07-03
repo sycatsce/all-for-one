@@ -48,20 +48,20 @@ class JoinRoom extends React.Component<any, state> {
   render() {
     let content = (
       <ImageBackground source={require('../../../../assets/img/backgroundLayout.png')} style={{ width: '100%', height: '100%', opacity: .9 }}>
-        <View>
+        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           <SearchBar
             lightTheme={true}
             containerStyle={{ backgroundColor: 'white', width: '80%' }}
-            inputContainerStyle={{ backgroundColor: 'rgba(236, 201, 212, 0.558011)' }}
+            inputContainerStyle={{ backgroundColor: '#8DAAE6' }}
             onChangeText={(needle: string) => { this.setState({ needle }) }}
             value={this.state.needle}
           />
           <Button
             onPress={() => this.searchRoom(this.state.needle)}
-            style={{ backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)', float: 'right' }}
+            style={{ width: '20%', height: '100%', backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)' }}
             textStyle={{ fontSize: 18, color: 'white' }}
           >
-            ok
+            Search
         </Button>
         </View>
 
@@ -84,16 +84,23 @@ class JoinRoom extends React.Component<any, state> {
           />
         </View>
 
-        <Modal style={{ backgroundColor: 'white', marginTop: '40%', marginBottom: '40%' }} isVisible={this.state.isModalVisible}>
-          <View style={{ flex: 1 }}>
+        <Modal style={{ backgroundColor: '#8DAAE6', marginTop: '40%', marginBottom: '40%' }} isVisible={this.state.isModalVisible}>
+          <View style={{ flex: 1, padding: '10%'}}>
 
             <Text> Room : {this.state.roomInfos.roomName} </Text>
             <Text> Description : {this.state.roomInfos.roomDescription} </Text>
             <Text> Host : {this.state.roomInfos.host} </Text>
             <Text> </Text>
 
-            <Button title="Join" onPress={() => { this.joinRoom(); }} />
-            <Button title="Cancel" onPress={() => { this._toggleModal(); }} />
+            <Button
+              style={{ backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)' }} 
+              onPress={() => { this.joinRoom(); }} 
+            > Join </Button>
+
+            <Button
+              style={{ backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)' }} 
+              onPress={() => { this._toggleModal(); }} 
+            > Cancel </Button>
           </View>
         </Modal>
 
