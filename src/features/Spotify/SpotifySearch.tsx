@@ -43,7 +43,7 @@ export default class SpotifySearch extends React.Component<any, state>{
                     onChangeText={(searchInput: string) => { this.searchSong(searchInput); }}
                     value={this.state.searchInput}
                 />
-                <View>
+                <View style={{ padding: '5%'}}>
                     <FlatList
                         contentContainerStyle={{ flexGrow: 1 }}
                         data={this.state.dataSource}
