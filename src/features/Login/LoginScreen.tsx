@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, AsyncStorage } from 'react-native';
+import { Text, View, AsyncStorage, ImageBackground, StyleSheet } from 'react-native';
 import Button from 'apsl-react-native-button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -28,35 +28,38 @@ class LoginScreen extends React.Component<any, state> {
 
   render() {
     let content = (
-      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+      <ImageBackground source={require('../../../assets/img/homepageBackground.jpg')} style={{ width: '100%', height: '100%', opacity: .8 }}>
 
-        <View style={{ height: '20%' }} />
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
 
-        <View style={{}}>
-          <Text style={{ fontFamily: 'GeosansLight', textAlign: 'center', fontSize: 60, color: 'black' }}> All For One </Text>
+          <View style={{ height: '20%' }} />
+
+          <View style={{}}>
+            <Text style={{ fontFamily: 'GeosansLight', textAlign: 'center', fontSize: 60, color: 'white' }}> Vibes </Text>
+          </View>
+
+          <View style={{ height: '50%' }} />
+
+          <View style={{ width: '90%' }}>
+            <Button
+              onPress={() => this.props.navigation.push('SignIn')}
+              style={styles.homeButtons}
+              textStyle={{ fontSize: 18, color: '#fff' }}>
+              Sign In
+            </Button>
+
+            <Button
+              onPress={() => this.props.navigation.push('SignUp')}
+              style={styles.homeButtons}
+              textStyle={{ fontSize: 18, color: '#fff' }}>
+              Sign Up
+            </Button>
+
+            {this.state.loading ? <Text> Loading ... </Text> : null}
+          </View>
+
         </View>
-
-        <View style={{ height: '50%' }} />
-
-        <View style={{ width: '90%' }}>
-          <Button
-            onPress={() => this.props.navigation.push('SignIn')}
-            style={{ backgroundColor: 'white' }}
-            textStyle={{ fontSize: 18, color: '#000000' }}>
-            Sign In
-          </Button>
-
-          <Button
-            onPress={() => this.props.navigation.push('SignUp')}
-            style={{ backgroundColor: 'white' }}
-            textStyle={{ fontSize: 18, color: '#000000' }}>
-            Sign Up
-          </Button>
-
-          {this.state.loading ? <Text> Loading ... </Text> : null}
-        </View>
-
-      </View>
+      </ImageBackground>
     );
     return (
       <AppLayout content={content}></AppLayout>
@@ -92,6 +95,18 @@ class LoginScreen extends React.Component<any, state> {
     });
   }
 }
+
+const styles = StyleSheet.create({
+	homeButtons: {
+		backgroundColor: 'rgba(236, 120, 145, 0.633674)',
+		paddingTop: 15,
+		paddingBottom: 15,
+		paddingRight: 20,
+		paddingLeft: 20,
+		borderRadius: 6,
+    borderColor: 'rgba(236, 120, 145, 0.633674)',
+	}
+});
 
 const mapStateToProps = (state: any) => {
   return {

@@ -16,50 +16,54 @@ export default class SignUpScreen extends React.Component<any, state> {
     let content = (
       <ImageBackground source={require('../../../assets/img/backgroundLayout.png')} style={{ width: '100%', height: '100%', opacity: .9 }}>
 
-        <Text style={{ top: 80, color: '#FFFFFF', textAlign: 'center', fontSize: 35, }}> Sign Up </Text>
+        <Text style={{ marginTop: '10%', color: '#FFFFFF', textAlign: 'center', fontSize: 35, }}> Sign Up </Text>
 
+        <View style={{ padding: '15%' }} >
 
-        <View style={{ padding: '15%', paddingTop: '35%' }} >
+          <Hoshi
+            label={'Username'}
+            onChangeText={(username: any) => this.setState({ username })}
+            labelStyle={{ color: '#FFFFFF' }}
+            inputStyle={{ color: '#FFFFFF', textAlign: 'center' }}
+            style={{ width: '100%' }}
+            borderColor={'#FFFFF'}
+            value={this.state.username}
+          />
 
-          <View>
-            <Hoshi
-              label={'Username'}
-              onChangeText={(username: any) => this.setState({ username })}
-              labelStyle={{ color: '#FFFFFF' }}
-              inputStyle={{ color: '#FFFFFF', textAlign: 'center' }}
-              style={{ width: '100%' }}
-              borderColor={'#FFFFF'}
-              value={this.state.username}
-            />
+          <View style={{ height: '5%' }}></View>
 
-            <Hoshi
-              label={'Password'}
-              onChangeText={(password: any) => this.setState({ password })}
-              labelStyle={{ color: '#FFFFFF' }}
-              inputStyle={{ color: '#FFFFFF', textAlign: 'center' }}
-              borderColor={'#FFFFF'}
-              value={this.state.password}
-              secureTextEntry={true}
-            />
+          <Hoshi
+            label={'Password'}
+            onChangeText={(password: any) => this.setState({ password })}
+            labelStyle={{ color: '#FFFFFF' }}
+            inputStyle={{ color: '#FFFFFF', textAlign: 'center' }}
+            borderColor={'#FFFFF'}
+            value={this.state.password}
+            secureTextEntry={true}
+          />
 
-            <Hoshi
-              label={'Confirm your password'}
-              onChangeText={(password: any) => this.setState({ password })}
-              labelStyle={{ color: '#FFFFFF' }}
-              inputStyle={{ color: '#FFFFFF', textAlign: 'center' }}
-              borderColor={'#FFFFF'}
-              value={this.state.password}
-              secureTextEntry={true}
-            />
-          </View>
-          <View>
+          <View style={{ height: '5%' }}></View>
+
+          <Hoshi
+            label={'Confirm your password'}
+            onChangeText={(password: any) => this.setState({ password })}
+            labelStyle={{ color: '#FFFFFF' }}
+            inputStyle={{ color: '#FFFFFF', textAlign: 'center' }}
+            borderColor={'#FFFFF'}
+            value={this.state.password}
+            secureTextEntry={true}
+          />
+
+          <View style={{ height: '20%' }}></View>
+
+          <View style={{ justifyContent: 'center', flexDirection: 'row'}}>
             <Button
               title="Sign Up"
               onPress={() => { }}
               style={styles.SignUpButton}
               textStyle={{ fontSize: 18, color: '#FFFFFF' }}>
               Sign Up
-					</Button>
+					  </Button>
           </View>
 
         </View>
@@ -77,8 +81,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(236, 201, 212, 0.558011)',
     width: 110,
     height: 31,
-    left: 90,
-    top: 50,
     paddingTop: 15,
     paddingBottom: 15,
     paddingRight: 20,

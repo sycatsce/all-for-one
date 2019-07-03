@@ -18,11 +18,10 @@ const LoginStack = createStackNavigator({
     navigationOptions: {
         title: 'Home',
         headerStyle: {
-          backgroundColor: '#fff',
+          backgroundColor: '#8DAAE6',
         },
-        headerTintColor: '#000',
+        headerTintColor: '#fff',
         headerTitleStyle: {
-          fontWeight: 'bold',
           fontFamily: 'GeosansLight'
       }
     }
@@ -32,11 +31,10 @@ const LoginStack = createStackNavigator({
     navigationOptions: {
       title: 'Home',
       headerStyle: {
-        backgroundColor: '#fff',
+        backgroundColor: '#8DAAE6',
       },
-      headerTintColor: '#000',
+      headerTintColor: '#fff',
       headerTitleStyle: {
-        fontWeight: 'bold',
         fontFamily: 'GeosansLight'
       }
     }

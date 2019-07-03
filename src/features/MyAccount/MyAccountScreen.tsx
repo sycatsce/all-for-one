@@ -13,7 +13,7 @@ class MyAccountScreen extends React.Component<any> {
           <Text style={{ fontSize: 21, color: 'white', textAlign: 'center' }}> My Account </Text>
 
           <View style={{ height: '50%', top: '20%' }}>
-            <Text style={{ color: 'white' }}> nom spotify </Text>
+            <Text style={{ color: 'white' }}> Spotify : { this.props.spotifyUser } </Text>
             <Text style={{ color: 'white' }}> mail spotify </Text>
           </View>
 
@@ -31,7 +31,8 @@ class MyAccountScreen extends React.Component<any> {
 
 const mapStateToProps = (state: any) => {
   return {
-    loggedAs: state.loginReducer.loggedAs
+    loggedAs: state.loginReducer.loggedAs,
+    spotifyUser: state.spotifyReducer.spotifyUser
   }
 }
 
