@@ -12,6 +12,9 @@ const spotifyReducer = (state = INITIAL_STATE, action: {type: string, payload:an
         case 'SPOTIFY_LOGOUT':
             return Object.assign( {}, state, { spotifyLogged : false, spotifyUser : null, userAuth : null } );
 
+        case 'USER_LOGOUT':
+            return INITIAL_STATE;
+            
         default:
             return state
     }

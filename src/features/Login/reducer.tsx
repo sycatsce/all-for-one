@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-    loggedAs : "Random",
+    loggedAs : null,
 };
 
 const loginReducer = (state = INITIAL_STATE, action: {type: string, payload:any}) => {
@@ -9,7 +9,7 @@ const loginReducer = (state = INITIAL_STATE, action: {type: string, payload:any}
             return Object.assign( {}, state, { loggedAs : action.payload } );
 
         case 'USER_LOGOUT':
-            return Object.assign( {}, state, { loggedAs : action.payload } );
+            return INITIAL_STATE;
 
         default:
             return state

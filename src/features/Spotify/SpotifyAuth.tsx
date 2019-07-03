@@ -74,7 +74,7 @@ class SpotifyAuth extends React.Component<any> {
             textStyle={{ fontSize: 13, color: 'white' }}
           >
             Unlink
-        </Button>
+          </Button>
         </View>
       )
     }

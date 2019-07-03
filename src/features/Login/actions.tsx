@@ -4,10 +4,3 @@ export const loginAction = (loggedAs: string) => (
       payload: loggedAs
     }
 );
-
-export const logoutAction = (loggedAs: string) => (
-    {
-        type: 'USER_LOGOUT',
-        payload: loggedAs
-    }
-);

@@ -113,16 +113,16 @@ class AfoScreen extends React.Component<any, state> {
                   style={{ backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)' }}
                   textStyle={{ fontSize: 18, color: 'white' }}
                 >
-                  Créer une salle
-                  </Button>
+                  Create a room
+                </Button>
                 <View style={{ height: 5 }} />
                 <Button
                   onPress={() => { this.props.navigation.push('Join'); }}
                   style={{ backgroundColor: 'rgba(236, 201, 212, 0.558011)', borderColor: 'rgba(236, 201, 212, 0.558011)' }}
                   textStyle={{ fontSize: 18, color: 'white' }}
                 >
-                  Rejoindre une salle
-                  </Button>
+                  Join a room
+                </Button>
               </View>
             </View>
           </ImageBackground>
